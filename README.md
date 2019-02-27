@@ -134,6 +134,12 @@ export default {
 
 [⬆ Back to Top](#table-of-contents)
 
+## Documentation
+
+- [online demo](https://femessage.github.io/el-data-tree/storybook/)
+
+[⬆ Back to Top](#table-of-contents)
+
 ## Demo
 
 you can run demo on your localhost, just follow these scripts
