@@ -134,6 +134,12 @@ export default {
 
 [⬆ Back to Top](#table-of-contents)
 
+## Documentation
+
+- [online demo](https://femessage.github.io/el-data-tree/storybook/)
+
+[⬆ Back to Top](#table-of-contents)
+
 ## Demo
 
 you can run demo on your localhost, just follow these scripts
@@ -463,6 +469,8 @@ customQuery: {
 
 ### drag
 
+下面给出一个配合后台接口进行拖拽排序的例子，逻辑如下：
+
 ```vue
 <el-data-tree
   :treeAttrs="{
@@ -477,6 +485,14 @@ customQuery: {
 ```js
 import Axios from 'axios'
 
+/**
+ * 算法如下
+ * 假设node为拖拽的节点，拖拽后的顺序为: prev, node, next, 则 sort = prev.sort
+ * @param dragNode
+ * @param dropNode
+ * @param dropType
+ * @param ev
+ */
 onDrop(dragNode, dropNode, dropType, ev) {
   const firstSort = -1
 
