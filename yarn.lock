@@ -630,10 +630,10 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@femessage/el-form-renderer@^1.3.0":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@femessage/el-form-renderer/-/el-form-renderer-1.3.0.tgz#32e056ca8ac2dc9b4e9e7c1458d0f4355a9ecc0e"
-  integrity sha512-5gsy00kVGl/LyElx0KmTrdhvqKkIudYh/EwMVFq7MNF8cAtsP+onVn6Y1YrOY4NEIsZCJ6hZLytRMRanrXA+Mw==
+"@femessage/el-form-renderer@^1.5.5":
+  version "1.5.5"
+  resolved "https://registry.yarnpkg.com/@femessage/el-form-renderer/-/el-form-renderer-1.5.5.tgz#2693f7587e6810de9aaea79f2f5f97e463af0e5a"
+  integrity sha512-t8YsCUaMkm1XgZNoIdx9NadoBzof+YYA+YAzR8fOacoHbgI5hKPuQbBwAaeXmBK8iz5nXyOIBwb/ugOYyDAlyg==
   dependencies:
     lodash.get "^4.4.2"
     lodash.set "^4.3.2"
@@ -4073,10 +4073,10 @@ electron-to-chromium@^1.2.7, electron-to-chromium@^1.3.30, electron-to-chromium@
   resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.95.tgz#79fac438813ca7f3db182a525c2ab432934f6484"
   integrity sha512-0JZEDKOQAE05EO/4rk3vLAE+PYFI9OLCVLAS4QAq1y+Bb2y1N6MyQJz62ynzHN/y0Ka/nO5jVJcahbCEdfiXLQ==
 
-element-ui@^2.5.4:
-  version "2.5.4"
-  resolved "https://registry.yarnpkg.com/element-ui/-/element-ui-2.5.4.tgz#1e051032026a144bc18f7920f0be927977541cb8"
-  integrity sha512-VlyPZ1A2VtVJdnu9nUV+u/eGhKaEF+IoENbDgNlUza0Slj6Jb0bC9mzK95JK2g7QSe8YXUWhQVy+d2kZUE2oKQ==
+element-ui@^2.8.0:
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/element-ui/-/element-ui-2.8.0.tgz#c03ba61338bb5036a687765156fbe8416d43b015"
+  integrity sha512-RweVclfFNQOfyGUX/2qXH7wfvcRUmVxm00UDNaTkRgYfJwix0vusl7pRrug3JY12eEqcNW3IRRJXdjeT4J1e8Q==
   dependencies:
     async-validator "~1.8.1"
     babel-helper-vue-jsx-merge-props "^2.0.0"
@@ -4419,6 +4419,13 @@ execa@^0.8.0:
     p-finally "^1.0.0"
     signal-exit "^3.0.0"
     strip-eof "^1.0.0"
+
+executioner@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/executioner/-/executioner-2.0.1.tgz#add328e03bc45dd598f358fbb529fc0be0ec6fcd"
+  integrity sha1-rdMo4DvEXdWY81j7tSn8C+Dsb80=
+  dependencies:
+    mixly "^1.0.0"
 
 exenv@^1.2.0, exenv@^1.2.1:
   version "1.2.2"
@@ -4916,6 +4923,11 @@ fstream@^1.0.0, fstream@^1.0.2:
     inherits "~2.0.0"
     mkdirp ">=0.5 0"
     rimraf "2"
+
+fulcon@^1.0.1:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/fulcon/-/fulcon-1.0.2.tgz#8a4dfda4c73fcd9cc62a79d5045c392b45547320"
+  integrity sha1-ik39pMc/zZzGKnnVBFw5K0VUcyA=
 
 function-bind@^1.0.2, function-bind@^1.1.0, function-bind@^1.1.1:
   version "1.1.1"
@@ -5725,6 +5737,13 @@ inquirer@3.3.0:
     string-width "^2.1.0"
     strip-ansi "^4.0.0"
     through "^2.3.6"
+
+install-peers@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/install-peers/-/install-peers-1.0.3.tgz#6348f8f67e6bc23c19ee78adb819c43f8d1dd7d7"
+  integrity sha512-MAlSHlrn4p+g3fhx8ZVxQZXX+MkeinKLu/ThfAmrVnN5c2L8Vof7myb0UsgowJEiGcFNHYnTvo37r3uap5asYA==
+  dependencies:
+    executioner "^2.0.1"
 
 internal-ip@1.2.0:
   version "1.2.0"
@@ -7480,6 +7499,13 @@ mixin-deep@^1.2.0:
   dependencies:
     for-in "^1.0.2"
     is-extendable "^1.0.1"
+
+mixly@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/mixly/-/mixly-1.0.0.tgz#9b5a2e1f63e6dfba0d30e6797ffae62ab1dc24ef"
+  integrity sha1-m1ouH2Pm37oNMOZ5f/rmKrHcJO8=
+  dependencies:
+    fulcon "^1.0.1"
 
 mkdirp2@^1.0.3:
   version "1.0.4"
