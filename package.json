@@ -59,7 +59,7 @@
     "pretty-quick": "^1.4.1",
     "rollup": "^0.57.1",
     "rollup-plugin-babel": "^3.0.7",
-    "rollup-plugin-uglify-es": "0.0.1",
+    "rollup-plugin-terser": "^4.0.4",
     "rollup-plugin-vue": "^3.0.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
