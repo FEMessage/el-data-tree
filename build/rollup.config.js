@@ -1,6 +1,7 @@
 // rollup.config.js
 import vue from 'rollup-plugin-vue'
 import babel from 'rollup-plugin-babel'
+import commonjs from 'rollup-plugin-commonjs'
 import {terser} from 'rollup-plugin-terser'
 import minimist from 'minimist'
 
@@ -13,6 +14,7 @@ const config = {
     exports: 'named'
   },
   plugins: [
+    commonjs(),
     vue({
       css: true,
       compileTemplate: true

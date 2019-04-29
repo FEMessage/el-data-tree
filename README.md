@@ -1,8 +1,11 @@
 # el-data-tree
 
+[![Build Status](https://travis-ci.com/FEMessage/el-data-tree.svg?branch=master)](https://travis-ci.com/FEMessage/el-data-tree)
 [![NPM Download](https://img.shields.io/npm/dm/@femessage/el-data-tree.svg)](https://www.npmjs.com/package/@femessage/el-data-tree)
-[![NPM Version](https://img.shields.io/npm/v/@femessage/el-data-tree.svg)](https://www.npmjs.com/package/@femessage/el-data-tree)[![NPM License](https://img.shields.io/npm/l/@femessage/el-data-tree.svg)](https://github.com/FEMessage/el-data-tree/blob/master/LICENSE)
+[![NPM Version](https://img.shields.io/npm/v/@femessage/el-data-tree.svg)](https://www.npmjs.com/package/@femessage/el-data-tree)
+[![NPM License](https://img.shields.io/npm/l/@femessage/el-data-tree.svg)](https://github.com/FEMessage/el-data-tree/blob/master/LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/FEMessage/el-data-tree/pulls)
+[![Automated Release Notes by gren](https://img.shields.io/badge/%F0%9F%A4%96-release%20notes-00B2EE.svg)](https://github-tools.github.io/github-release-notes/)
 
 使用`axios`自动发送请求，支持筛选, 自定义操作列, 让 RESTful 风格的 CRUD 更简单 👏
 
@@ -10,25 +13,34 @@
 
 ## Table of Contents
 
-* **[Introduction](#introduction)**
-* **[Feature](#feature)**
-* **[Documentation](#documentation)**
-* **[Demo](#demo)**
-* **[Install](#install)**
-* **[Quick Start](#quick-start)**
-* **[Example](#example)**
-  * **[basic](#basic)**
-  * **[url](#url)**
-  * **[extraButtons](#extraButtons)**
-  * **[beforeConfirm](#beforeConfirm)**
-  * **[onDelete](#onDelete)**
-  * **[drag](#drag)**
-* **[Api](#api)**
-  * **[Attributes](#attributes)**
-  * **[Methods](#methods)**
-  * **[Events](#events)**
-  * **[Scoped Slot](#scoped-slot)**
-* **[License](license)**
+* [el-data-tree](#el-data-tree)
+  * [Table of Contents](#table-of-contents)
+  * [Introduction](#introduction)
+    * [CRUD](#crud)
+  * [Feature](#feature)
+  * [Documentation](#documentation)
+  * [Demo](#demo)
+  * [pre install](#pre-install)
+  * [Install](#install)
+  * [Quick Start](#quick-start)
+    * [global register component](#global-register-component)
+    * [template](#template)
+  * [Example](#example)
+    * [basic](#basic)
+    * [url](#url)
+    * [new/edit form](#newedit-form)
+    * [extraButtons](#extrabuttons)
+    * [beforeConfirm](#beforeconfirm)
+    * [onDelete](#ondelete)
+    * [extraParams on new/edit](#extraparams-on-newedit)
+    * [customQuery on search](#customquery-on-search)
+    * [drag](#drag)
+  * [Api](#api)
+    * [Attributes](#attributes)
+    * [Methods](#methods)
+    * [Events](#events)
+    * [Scoped Slot](#scoped-slot)
+  * [License](#license)
 
 ## Introduction
 
@@ -140,7 +152,7 @@ export default {
 
 ## Documentation
 
-- [online demo](https://femessage.github.io/el-data-tree/storybook/)
+* [online demo](https://femessage.github.io/el-data-tree/storybook/)
 
 [⬆ Back to Top](#table-of-contents)
 
