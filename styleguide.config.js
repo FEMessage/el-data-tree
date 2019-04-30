@@ -17,7 +17,7 @@ const demoSections = Object.entries(docsMap).map(([basename, name]) => ({
 }))
 
 module.exports = {
-  require: [path.join(__dirname, 'docs/global.requires.js')],
+  require: [path.join(__dirname, 'styleguide/global.requires.js')],
   styleguideDir: 'docs',
   pagePerSection: true,
   ribbon: {
