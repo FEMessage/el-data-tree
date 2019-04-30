@@ -18,7 +18,6 @@
   * [Introduction](#introduction)
     * [CRUD](#crud)
   * [Feature](#feature)
-  * [Documentation](#documentation)
   * [Demo](#demo)
   * [pre install](#pre-install)
   * [Install](#install)
@@ -150,29 +149,9 @@ export default {
 
 [⬆ Back to Top](#table-of-contents)
 
-## Documentation
-
-* [online demo](https://femessage.github.io/el-data-tree/storybook/)
-
-[⬆ Back to Top](#table-of-contents)
-
 ## Demo
 
-you can run demo on your localhost, just follow these scripts
-
-```bash
-# clone the source code
-git clone https://github.com/FEMessage/el-data-tree.git
-
-# enter the directory
-cd el-data-tree
-
-# install the dependencies
-yarn
-
-# run demo in ./stories
-yarn storybook
-```
+* [doc and online demo](https://femessage.github.io/el-data-tree/)
 
 [⬆ Back to Top](#table-of-contents)
 
