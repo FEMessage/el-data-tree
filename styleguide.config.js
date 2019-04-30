@@ -1,8 +1,39 @@
+const {VueLoaderPlugin} = require('vue-loader')
+const path = require('path')
+
+const docs = [
+  'basic',
+  'dynamic-url',
+  'filter-nodes',
+  'configure-el-tree',
+  'multi-select-nodes',
+  'memorize-expansion',
+  'custom-menu'
+]
+
+const demoSections = docs.map(name => ({
+  name,
+  content: `docs/${name}.md`
+}))
+
 module.exports = {
-  components: 'src/*.vue',
+  require: [path.join(__dirname, 'styleguide/global.requires.js')],
+  styleguideDir: 'docs',
+  pagePerSection: true,
   ribbon: {
-    url: 'https://github.com/FEMessage/{{componentName}}'
+    url: 'https://github.com/FEMessage/el-data-tree'
   },
+  sections: [
+    {
+      name: 'Components',
+      components: 'src/*.vue',
+      usageMode: 'expand'
+    },
+    {
+      name: 'Demo',
+      sections: demoSections
+    }
+  ],
   webpackConfig: {
     module: {
       rules: [
@@ -17,12 +48,18 @@ module.exports = {
         },
         {
           test: /\.css$/,
-          use: ['style-loader', 'css-loader', 'stylus-loader']
+          loaders: ['style-loader', 'css-loader']
+        },
+        {
+          test: /\.styl(us)?$/,
+          loaders: ['vue-style-loader', 'css-loader', 'stylus-loader']
+        },
+        {
+          test: /\.(woff2?|eot|[ot]tf)(\?.*)?$/,
+          loader: 'file-loader'
         }
       ]
-    }
-  },
-  showUsage: true,
-  showCode: true,
-  styleguideDir: 'docs'
+    },
+    plugins: [new VueLoaderPlugin()]
+  }
 }
