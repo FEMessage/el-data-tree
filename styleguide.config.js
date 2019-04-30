@@ -1,19 +1,19 @@
 const {VueLoaderPlugin} = require('vue-loader')
 const path = require('path')
 
-const docsMap = {
-  basic: '基础用法',
-  'dynamic-url': '动态变化url',
-  filter: '节点过滤',
-  'configure-el-tree': '配置el-tree',
-  checkbox: '树节点的选择',
-  'memorize-expansion': '保存展开状态',
-  'custom-menu': '自定义菜单'
-}
+const docs = [
+  'basic',
+  'dynamic-url',
+  'filter-nodes',
+  'configure-el-tree',
+  'multi-select-nodes',
+  'memorize-expansion',
+  'custom-menu'
+]
 
-const demoSections = Object.entries(docsMap).map(([basename, name]) => ({
+const demoSections = docs.map(name => ({
   name,
-  content: `docs/${basename}.md`
+  content: `docs/${name}.md`
 }))
 
 module.exports = {

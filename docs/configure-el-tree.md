@@ -1,3 +1,4 @@
+支持配置el-tree
 
 ```vue
 <template>

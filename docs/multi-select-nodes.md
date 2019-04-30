@@ -1,3 +1,4 @@
+被选中的节点的id会自动同步到checkedKeys以供后续提交。
 
 ```vue
 <template>

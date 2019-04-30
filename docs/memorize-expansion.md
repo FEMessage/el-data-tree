@@ -1,3 +1,4 @@
+支持默认展开
 
 ```vue
 <template>

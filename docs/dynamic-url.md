@@ -1,3 +1,4 @@
+url可在运行时动态变化
 
 ```vue
 <template>
