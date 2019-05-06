@@ -1,5 +1,6 @@
 <template>
   <div class="el-data-tree">
+    <!--@slot 自定义title部分 -->
     <slot name="title" v-if="hasTitle">
       <p class="data-tree-title">{{ title }}<i class="el-icon-plus" @click="onDefaultNew"></i></p>
     </slot>
