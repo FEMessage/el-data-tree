@@ -3,12 +3,12 @@
 ```vue
 <template>
   <div>
-    <el-data-tree v-bind="$data" 
+    <el-data-tree v-bind="$data"
       :url="getUrl"
-      :checkedKeys.sync="checkedKeys" 
+      :checkedKeys.sync="checkedKeys"
       @check-change="handleCheckChange"
       ref="tree" />
-    <div>
+    <div style="padding-top: 1rem;">
       <el-button @click="setCheckedKeys">通过key设置</el-button>
       <el-button @click="getCheckedNodes">通过node获取</el-button>
       <el-button @click="resetChecked">清空</el-button>

@@ -3,6 +3,7 @@ const path = require('path')
 
 const docs = [
   'basic',
+  'with-header',
   'dynamic-url',
   'filter-nodes',
   'configure-el-tree',

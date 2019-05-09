@@ -2,7 +2,12 @@ url可在运行时动态变化
 
 ```vue
 <template>
-  <div><el-data-tree v-bind="$data" /><el-button @click="handleClick">调整url</el-button></div>
+  <div>
+    <el-data-tree v-bind="$data" />
+    <div style="padding-top: 1rem;">
+      <el-button @click="handleClick" >调整url</el-button>
+    </div>
+  </div>
 </template>
 
 <script>

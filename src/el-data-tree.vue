@@ -1,16 +1,25 @@
 <template>
-  <div class="el-data-tree">
-    <slot name="title" v-if="hasTitle">
-      <p class="data-tree-title">{{ title }}<i class="el-icon-plus" @click="onDefaultNew"></i></p>
-    </slot>
+  <el-card class="el-data-tree" shadow="hover">
+    <header class="header" slot="header" v-if="hasTitle">
+      <p class="header__title">
+        {{ title }}
+        <small class="header__sub-title">{{ subTitle }}</small>
+      </p>
+      <!--@slot 标题栏右边的按钮组，可放多个按钮 -->
+      <slot class="header__buttons" name="headerButtons">
+        <el-button type="text" size="mini" @click="onDefaultNew">
+          <i class="el-icon-plus"></i>
+        </el-button>
+      </slot>
+    </header>
 
     <el-input
       placeholder="查询"
       v-if="showFilter"
       v-model="filterText"
+      suffix-icon="el-icon-search"
       clearable
-    >
-    </el-input>
+    />
     <el-tree
       ref="tree"
       v-loading="loading"
@@ -24,17 +33,13 @@
       @check-change="handleCheckChange"
       class="data-tree"
     >
-      <span
-        class="custom-tree-node"
-        slot-scope="{node, data}"
-      >
+      <span class="custom-tree-node" slot-scope="{node, data}">
         <span class="custom-tree-node-label">{{ node.label }}</span>
         <span @click="e => e.stopPropagation()" v-if="hasOperation">
-          <el-dropdown
-            trigger="click"
-            @command="command => handleCommand(command, data, node)"
-          >
-            <span class="el-dropdown-link"><i class="el-icon-more"></i></span>
+          <el-dropdown trigger="click" @command="command => handleCommand(command, data, node)">
+            <span class="el-dropdown-link">
+              <i class="el-icon-more"></i>
+            </span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item v-if="hasNew" command="new">{{ newText }}</el-dropdown-item>
               <el-dropdown-item v-if="hasEdit" command="edit">{{ editText }}</el-dropdown-item>
@@ -43,9 +48,7 @@
                 :key="i"
                 v-bind="btn"
                 :command="btn.text"
-              >
-                {{ btn.text }}
-              </el-dropdown-item>
+              >{{ btn.text }}</el-dropdown-item>
               <el-dropdown-item v-if="hasDelete" command="delete">{{ deleteText }}</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -65,7 +68,7 @@
         <el-button type="primary" @click="confirm" :loading="confirmLoading" size="small">确 定</el-button>
       </div>
     </el-dialog>
-  </div>
+  </el-card>
 </template>
 
 <script>
@@ -94,6 +97,13 @@ export default {
      * 标题文字
      */
     title: {
+      type: String,
+      default: ''
+    },
+    /**
+     *  次要标题文字
+     */
+    subTitle: {
       type: String,
       default: ''
     },
@@ -595,33 +605,42 @@ export default {
 </script>
 
 <style lang="stylus">
-  .el-data-tree {
-    .data-tree-title {
-      padding: 8px;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+.el-data-tree {
+  .header {
+    display: flex;
+    align-items: center;
 
-      .el-icon-plus {
-        cursor: pointer;
-      }
-    }
-    .data-tree {
-      padding-top: 8px;
-    }
-    .custom-tree-node {
-      overflow: hidden;
+    &__title {
       flex: 1;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      font-size: 14px;
-      padding-right: 8px;
+      margin: 0;
+      light-height: 1;
     }
-    .custom-tree-node-label {
-      overflow: hidden;
-      text-overflow: ellipsis
+
+    &__sub-title {
+      color: #909399;
+      padding-left: 1em;
     }
   }
+
+  .data-tree {
+    padding-top: 8px;
+  }
+
+  .custom-tree-node {
+    overflow: hidden;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+    padding-right: 8px;
+  }
+
+  .custom-tree-node-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
 </style>
