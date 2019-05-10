@@ -1,5 +1,5 @@
 <template>
-  <div class="el-data-tree">
+  <el-card class="el-data-tree" shadow="hover">
     <slot name="title" v-if="hasTitle">
       <p class="data-tree-title">{{ title }}<i class="el-icon-plus" @click="onDefaultNew"></i></p>
     </slot>
@@ -65,7 +65,7 @@
         <el-button type="primary" @click="confirm" :loading="confirmLoading" size="small">确 定</el-button>
       </div>
     </el-dialog>
-  </div>
+  </el-card>
 </template>
 
 <script>
