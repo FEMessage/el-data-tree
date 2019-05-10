@@ -8,6 +8,7 @@
       placeholder="查询"
       v-if="showFilter"
       v-model="filterText"
+      suffix-icon="el-icon-search"
       clearable
     >
     </el-input>
