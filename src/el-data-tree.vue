@@ -1,7 +1,14 @@
 <template>
   <div class="el-data-tree">
     <slot name="title" v-if="hasTitle">
-      <p class="data-tree-title">{{ title }}<i class="el-icon-plus" @click="onDefaultNew"></i></p>
+      <p class="data-tree-title">
+        {{ title }}
+        <span @click="onDefaultNew">
+          <slot name="add">
+            <i class="el-icon-plus"></i>
+          </slot>
+        </span>
+      </p>
     </slot>
 
     <el-input
@@ -28,9 +35,34 @@
         class="custom-tree-node"
         slot-scope="{node, data}"
       >
-        <span class="custom-tree-node-label">{{ node.label }}</span>
+        <span class="custom-tree-node-label">
+          <slot name="node-text" :row="data">
+            {{ node.label }}
+          </slot>
+        </span>
         <span @click="e => e.stopPropagation()" v-if="hasOperation">
+          <template v-if="extraButtonsType === 'text'">
+            <el-button v-if="hasNew" type="text" @click="handleCommand('new', node, data)">
+              {{ newText }}
+            </el-button>
+            <el-button v-if="hasEdit" type="text" @click="handleCommand('edit', node, data)">
+              {{ editText }}
+            </el-button>
+            <el-button
+              v-for="(btn, i) in extraButtons.filter(btn => !btn.show || btn.show(data, node))"
+              :key="i"
+              v-bind="btn"
+              type="text"
+              @click="handleCommand(btn.text, node, data)"
+            >
+              {{ btn.text }}
+            </el-button>
+            <el-button v-if="hasDelete" type="text" @click="handleCommand('delete', node, data)">
+              {{ deleteText }}
+            </el-button>
+          </template>
           <el-dropdown
+            v-else
             trigger="click"
             @command="command => handleCommand(command, data, node)"
           >
@@ -152,6 +184,14 @@ export default {
       default() {
         return []
       }
+    },
+    /**
+     * 操作列自定义菜单样式, 默认是dropdown
+     * `dropdown, text`
+     */
+    extraButtonsType: {
+      type: String,
+      default: 'dropdown'
     },
     /**
      * 弹窗表单, 用于新增与修改, 详情配置参考 @femessage/el-form-renderer
