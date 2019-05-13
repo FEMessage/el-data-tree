@@ -1,8 +1,26 @@
 <template>
   <div class="el-data-tree">
-    <slot name="title" v-if="hasTitle">
-      <p class="data-tree-title">{{ title }}<i class="el-icon-plus" @click="onDefaultNew"></i></p>
-    </slot>
+    <header class="header" v-if="hasTitle">
+      <div class="header-left">
+        <p class="header-title">{{ title }}</p>
+        <!--@slot 标题右侧内容 -->
+        <slot name="subTitle"></slot>
+      </div>
+      <div class="header-right">
+        <span class="header-btn" @click="onDefaultNew">
+          <!--@slot 默认新增按钮，可替换为普通按钮 -->
+          <slot name="defaultNewBtn">
+            <el-button type="text" size="mini">
+              <i class="el-icon-plus"></i>
+            </el-button>
+          </slot>
+        </span>
+        <span class="header-extra-buttons">
+          <!--@slot 标题栏右边的按钮组，可放多个按钮 -->
+          <slot name="headerExtraButtons"></slot>
+        </span>
+      </div>
+    </header>
 
     <el-input
       placeholder="查询"
@@ -608,6 +626,36 @@ export default {
         cursor: pointer;
       }
     }
+
+  .header {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #ebeef5;
+
+    .header-left, .header-right {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    .header-right {
+      justify-content: flex-end;
+    }
+
+    .header-title {
+      margin: 0;
+      color: #303133;
+      display: inline-block;
+      padding-right: 0.8em;
+    }
+
+    .header-btn,
+    .header-extra-buttons {
+      margin-left: 1em;
+    }
+  }
+
     .data-tree {
       padding-top: 8px;
     }
