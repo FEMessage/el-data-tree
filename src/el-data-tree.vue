@@ -1,5 +1,5 @@
 <template>
-  <div class="el-data-tree" :class="{'is-bordered': hasBorder }">
+  <div class="el-data-tree" :class="{'has-bordered': hasBorder }">
     <slot name="title" v-if="hasTitle">
       <p class="data-tree-title">{{ title }}<i class="el-icon-plus" @click="onDefaultNew"></i></p>
     </slot>
@@ -609,7 +609,7 @@ export default {
     overflow: hidden;
     transition: 0.3s;
 
-    &.is-bordered {
+    &.has-bordered {
      border-radius: 4px;
      background-color: #fff;
      border: 1px solid #ebeef5;
@@ -624,12 +624,13 @@ export default {
     }
 
     .data-tree-title {
-      padding: 8px;
-      font-weight: bold;
       display: flex;
       align-items: center;
       justify-content: space-between;
-
+      padding: 18px 20px;
+      margin: 0;
+      border-bottom: 1px solid #ebeef5;
+      box-sizing: border-box;
       .el-icon-plus {
         cursor: pointer;
       }
