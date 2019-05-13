@@ -3,12 +3,15 @@ const path = require('path')
 
 const docs = [
   'basic',
+  'has-header',
   'dynamic-url',
   'filter-nodes',
   'configure-el-tree',
   'multi-select-nodes',
   'memorize-expansion',
-  'custom-menu'
+  'custom-menu',
+  'extra-buttons-type',
+  'slot-node-label'
 ]
 
 const demoSections = docs.map(name => ({

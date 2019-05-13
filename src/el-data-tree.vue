@@ -1,57 +1,104 @@
 <template>
-  <div class="el-data-tree">
-    <slot name="title" v-if="hasTitle">
-      <p class="data-tree-title">{{ title }}<i class="el-icon-plus" @click="onDefaultNew"></i></p>
-    </slot>
+  <div class="el-data-tree" :class="{'has-border': hasBorder }">
+    <header class="header" v-if="hasTitle || hasHeader">
+      <div class="header-left">
+        <!--@slot 标题 -->
+        <slot name="title">
+          <p class="header-title">{{ title }}</p>
+        </slot>
+      </div>
+      <div class="header-right">
+        <span class="header-new-btn" @click="onDefaultNew">
+          <!--@slot 头部新增按钮 -->
+          <slot name="header-new-btn">
+            <el-button type="text" size="mini">
+              <i class="el-icon-plus"></i>
+            </el-button>
+          </slot>
+        </span>
+        <span class="header-extra-block">
+          <!--@slot 标题栏右边的额外区域-->
+          <slot name="header-extra-block"></slot>
+        </span>
+      </div>
+    </header>
 
-    <el-input
-      placeholder="查询"
-      v-if="showFilter"
-      v-model="filterText"
-      clearable
-    >
-    </el-input>
-    <el-tree
-      ref="tree"
-      v-loading="loading"
-      :data="treeData"
-      v-bind="treeAttributes"
-      :filterNodeMethod="filterNode"
-      :defaultExpandedKeys="expandedKeys"
-      v-on="$listeners"
-      @node-expand="handleNodeExpand"
-      @node-collapse="handleNodeCollapse"
-      @check-change="handleCheckChange"
-      class="data-tree"
-    >
-      <span
-        class="custom-tree-node"
-        slot-scope="{node, data}"
+    <section class="body">
+      <el-input
+        placeholder="查询"
+        v-if="showFilter"
+        v-model="filterText"
+        suffix-icon="el-icon-search"
+        clearable
+      ></el-input>
+      <el-tree
+        ref="tree"
+        v-loading="loading"
+        :data="treeData"
+        v-bind="treeAttributes"
+        :filterNodeMethod="filterNode"
+        :defaultExpandedKeys="expandedKeys"
+        v-on="$listeners"
+        @node-expand="handleNodeExpand"
+        @node-collapse="handleNodeCollapse"
+        @check-change="handleCheckChange"
+        class="data-tree"
       >
-        <span class="custom-tree-node-label">{{ node.label }}</span>
-        <span @click="e => e.stopPropagation()" v-if="hasOperation">
-          <el-dropdown
-            trigger="click"
-            @command="command => handleCommand(command, data, node)"
-          >
-            <span class="el-dropdown-link"><i class="el-icon-more"></i></span>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item v-if="hasNew" command="new">{{ newText }}</el-dropdown-item>
-              <el-dropdown-item v-if="hasEdit" command="edit">{{ editText }}</el-dropdown-item>
-              <el-dropdown-item
+        <span class="custom-tree-node" slot-scope="{node, data}">
+          <span class="custom-tree-node-label">
+            <!-- @slot 可定制的节点标签内容, 参数为 { data } -->
+            <slot name="node-label" :data="data">{{ node.label }}</slot>
+          </span>
+          <span @click="e => e.stopPropagation()" v-if="hasOperation">
+            <template v-if="extraButtonsType === 'text'">
+              <el-button
+                v-if="hasNew"
+                type="text"
+                @click="handleCommand('new', node, data)"
+              >{{ newText }}</el-button>
+              <el-button
+                v-if="hasEdit"
+                type="text"
+                @click="handleCommand('edit', node, data)"
+              >{{ editText }}</el-button>
+              <el-button
                 v-for="(btn, i) in extraButtons.filter(btn => !btn.show || btn.show(data, node))"
                 :key="i"
                 v-bind="btn"
-                :command="btn.text"
-              >
-                {{ btn.text }}
-              </el-dropdown-item>
-              <el-dropdown-item v-if="hasDelete" command="delete">{{ deleteText }}</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
+                type="text"
+                @click="handleCommand(btn.text, node, data)"
+              >{{ btn.text }}</el-button>
+              <el-button
+                v-if="hasDelete"
+                type="text"
+                @click="handleCommand('delete', node, data)"
+                class="delete-button"
+              >{{ deleteText }}</el-button>
+            </template>
+            <el-dropdown
+              v-else
+              trigger="click"
+              @command="command => handleCommand(command, data, node)"
+            >
+              <span class="el-dropdown-link">
+                <i class="el-icon-more"></i>
+              </span>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item v-if="hasNew" command="new">{{ newText }}</el-dropdown-item>
+                <el-dropdown-item v-if="hasEdit" command="edit">{{ editText }}</el-dropdown-item>
+                <el-dropdown-item
+                  v-for="(btn, i) in extraButtons.filter(btn => !btn.show || btn.show(data, node))"
+                  :key="i"
+                  v-bind="btn"
+                  :command="btn.text"
+                >{{ btn.text }}</el-dropdown-item>
+                <el-dropdown-item v-if="hasDelete" command="delete">{{ deleteText }}</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+          </span>
         </span>
-      </span>
-    </el-tree>
+      </el-tree>
+    </section>
 
     <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" @close="closeDialog">
       <!--https://github.com/FEMessage/el-form-renderer-->
@@ -96,6 +143,13 @@ export default {
     title: {
       type: String,
       default: ''
+    },
+    /**
+     * 是否有边框
+     */
+    hasBorder: {
+      type: Boolean,
+      default: true
     },
     /**
      * tree attributes
@@ -154,6 +208,14 @@ export default {
       }
     },
     /**
+     * 操作列自定义菜单样式, 默认是dropdown
+     * `text, dropdown`
+     */
+    extraButtonsType: {
+      type: String,
+      default: 'dropdown'
+    },
+    /**
      * 弹窗表单, 用于新增与修改, 详情配置参考 @femessage/el-form-renderer
      * @link https://github.com/FEMessage/el-form-renderer/blob/master/README.md
      */
@@ -199,9 +261,17 @@ export default {
       default: true
     },
     /**
-     * 是否有标题栏
+     * @deprecated
+     * 是否有标题栏，建议使用 hasHeader
      */
     hasTitle: {
+      type: Boolean,
+      default: false
+    },
+    /**
+     * 是否有标题栏
+     */
+    hasHeader: {
       type: Boolean,
       default: false
     },
@@ -595,33 +665,93 @@ export default {
 </script>
 
 <style lang="stylus">
-  .el-data-tree {
-    .data-tree-title {
-      padding: 8px;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+$delete-color = #E24156;
 
-      .el-icon-plus {
-        cursor: pointer;
-      }
+.el-data-tree {
+  overflow: hidden;
+  transition: 0.3s;
+
+  &.has-border {
+    border-radius: 4px;
+    background-color: #fff;
+    border: 1px solid #ebeef5;
+
+    &:hover, &:focus {
+      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
     }
-    .data-tree {
-      padding-top: 8px;
-    }
-    .custom-tree-node {
-      overflow: hidden;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    padding: 18px 20px;
+    border-bottom: 1px solid #ebeef5;
+
+    .header-left, .header-right {
       flex: 1;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      font-size: 14px;
-      padding-right: 8px;
     }
-    .custom-tree-node-label {
-      overflow: hidden;
-      text-overflow: ellipsis
+
+    .header-right {
+      justify-content: flex-end;
+    }
+
+    .header-title {
+      margin: 0;
+      color: #303133;
+      display: inline-block;
+      padding-right: 10px;
+    }
+
+    .header-new-btn, .header-extra-block {
+      margin-left: 10px;
     }
   }
+
+  .body {
+    padding: 20px;
+  }
+
+  .data-tree-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 20px;
+    margin: 0;
+    border-bottom: 1px solid #ebeef5;
+    box-sizing: border-box;
+
+    .el-icon-plus {
+      cursor: pointer;
+    }
+  }
+
+  .data-tree {
+    padding-top: 8px;
+  }
+
+  .custom-tree-node {
+    overflow: hidden;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+    padding-right: 8px;
+  }
+
+  .custom-tree-node-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .delete-button {
+    color: $delete-color;
+
+    &:hover, &:focus {
+      color: $delete-color;
+    }
+  }
+}
 </style>
