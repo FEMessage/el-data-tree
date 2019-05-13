@@ -9,7 +9,7 @@
       </div>
       <div class="header-right">
         <span class="header-button" @click="onDefaultNew">
-          <!--@slot 默认新增按钮，可替换为普通按钮 -->
+          <!--@slot 头部新增按钮 -->
           <slot name="header-new-btn">
             <el-button type="text" size="mini">
               <i class="el-icon-plus"></i>
@@ -17,7 +17,7 @@
           </slot>
         </span>
         <span class="header-extra-block">
-          <!--@slot 标题栏右边的按钮组，可放多个按钮 -->
+          <!--@slot 标题栏右边的额外区域-->
           <slot name="header-extra-block"></slot>
         </span>
       </div>
