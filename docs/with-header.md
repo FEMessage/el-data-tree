@@ -3,9 +3,9 @@
 ```vue
 <template>
   <el-data-tree v-bind="$data" :url="getUrl" :onNew="onNew" :onEdit="onEdit" :onDelete="onDelete">
-    <small slot="subTitle">这是一个副标题</small>
-    <el-button type="primary" size="mini" slot="defaultNewBtn">添加组织</el-button>
-    <el-button type="primary" size="mini" slot="headerExtraButtons">其他按钮</el-button>
+    <small slot="sub-title">这是一个副标题</small>
+    <el-button type="primary" size="mini" slot="default-new-button">添加组织</el-button>
+    <el-button type="primary" size="mini" slot="header-extra-buttons">其他按钮</el-button>
   </el-data-tree>
 </template>
 

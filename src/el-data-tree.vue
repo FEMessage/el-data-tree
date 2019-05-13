@@ -4,12 +4,12 @@
       <div class="header-left">
         <p class="header-title">{{ title }}</p>
         <!--@slot 标题右侧内容 -->
-        <slot name="subTitle"></slot>
+        <slot name="sub-title"></slot>
       </div>
       <div class="header-right">
-        <span class="header-btn" @click="onDefaultNew">
+        <span class="header-button" @click="onDefaultNew">
           <!--@slot 默认新增按钮，可替换为普通按钮 -->
-          <slot name="defaultNewBtn">
+          <slot name="default-new-button">
             <el-button type="text" size="mini">
               <i class="el-icon-plus"></i>
             </el-button>
@@ -17,7 +17,7 @@
         </span>
         <span class="header-extra-buttons">
           <!--@slot 标题栏右边的按钮组，可放多个按钮 -->
-          <slot name="headerExtraButtons"></slot>
+          <slot name="header-extra-buttons"></slot>
         </span>
       </div>
     </header>
@@ -650,7 +650,7 @@ export default {
       padding-right: 0.8em;
     }
 
-    .header-btn,
+    .header-button,
     .header-extra-buttons {
       margin-left: 1em;
     }
