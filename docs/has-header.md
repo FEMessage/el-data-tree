@@ -2,7 +2,11 @@
 
 ```vue
 <template>
-  <el-data-tree v-bind="$data" :url="getUrl" :onNew="onNew" :onEdit="onEdit" :onDelete="onDelete" />
+  <el-data-tree v-bind="$data" :url="getUrl" :onNew="onNew" :onEdit="onEdit" :onDelete="onDelete">
+    <span slot="title">这是 slot 标题</span>
+    <el-button type="primary" size="mini" slot="header-new-btn">添加组织</el-button>
+    <el-button type="primary" size="mini" slot="header-extra-block">其他按钮</el-button>
+  </el-data-tree>
 </template>
 
 <script>
@@ -10,8 +14,7 @@ export default {
   data() {
     return {
       dataPath: 'data.payload',
-	  hasTitle: true,
-	  title: "这是一个标题",
+	    hasHeader: true,
       form: [
         {
           $id: 'name',
