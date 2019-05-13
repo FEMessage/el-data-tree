@@ -1,7 +1,10 @@
 <template>
   <div class="el-data-tree" :class="{'has-border': hasBorder }">
     <slot name="title" v-if="hasTitle">
-      <p class="data-tree-title">{{ title }}<i class="el-icon-plus" @click="onDefaultNew"></i></p>
+      <p class="data-tree-title">
+        {{ title }}
+        <i class="el-icon-plus" @click="onDefaultNew"></i>
+      </p>
     </slot>
 
     <section class="body">
@@ -11,8 +14,7 @@
         v-model="filterText"
         suffix-icon="el-icon-search"
         clearable
-      >
-      </el-input>
+      ></el-input>
       <el-tree
         ref="tree"
         v-loading="loading"
@@ -26,17 +28,45 @@
         @check-change="handleCheckChange"
         class="data-tree"
       >
-        <span
-          class="custom-tree-node"
-          slot-scope="{node, data}"
-        >
-          <span class="custom-tree-node-label">{{ node.label }}</span>
+        <span class="custom-tree-node" slot-scope="{node, data}">
+          <span class="custom-tree-node-label">
+            <!-- @slot 可定制的节点标签内容, 参数为 { data } -->
+            <slot name="node-label" :data="data">{{ node.label }}</slot>
+          </span>
           <span @click="e => e.stopPropagation()" v-if="hasOperation">
+            <template v-if="extraButtonsType === 'text'">
+              <el-button
+                v-if="hasNew"
+                type="text"
+                @click="handleCommand('new', node, data)"
+              >{{ newText }}</el-button>
+              <el-button
+                v-if="hasEdit"
+                type="text"
+                @click="handleCommand('edit', node, data)"
+              >{{ editText }}</el-button>
+              <el-button
+                v-for="(btn, i) in extraButtons.filter(btn => !btn.show || btn.show(data, node))"
+                :key="i"
+                v-bind="btn"
+                type="text"
+                @click="handleCommand(btn.text, node, data)"
+              >{{ btn.text }}</el-button>
+              <el-button
+                v-if="hasDelete"
+                type="text"
+                @click="handleCommand('delete', node, data)"
+                class="delete-button"
+              >{{ deleteText }}</el-button>
+            </template>
             <el-dropdown
+              v-else
               trigger="click"
               @command="command => handleCommand(command, data, node)"
             >
-              <span class="el-dropdown-link"><i class="el-icon-more"></i></span>
+              <span class="el-dropdown-link">
+                <i class="el-icon-more"></i>
+              </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item v-if="hasNew" command="new">{{ newText }}</el-dropdown-item>
                 <el-dropdown-item v-if="hasEdit" command="edit">{{ editText }}</el-dropdown-item>
@@ -45,9 +75,7 @@
                   :key="i"
                   v-bind="btn"
                   :command="btn.text"
-                >
-                  {{ btn.text }}
-                </el-dropdown-item>
+                >{{ btn.text }}</el-dropdown-item>
                 <el-dropdown-item v-if="hasDelete" command="delete">{{ deleteText }}</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
@@ -162,6 +190,14 @@ export default {
       default() {
         return []
       }
+    },
+    /**
+     * 操作列自定义菜单样式, 默认是dropdown
+     * `text, dropdown`
+     */
+    extraButtonsType: {
+      type: String,
+      default: 'dropdown'
     },
     /**
      * 弹窗表单, 用于新增与修改, 详情配置参考 @femessage/el-form-renderer
@@ -605,51 +641,65 @@ export default {
 </script>
 
 <style lang="stylus">
-  .el-data-tree {
-    overflow: hidden;
-    transition: 0.3s;
+$delete-color = #E24156;
 
-    &.has-border {
-     border-radius: 4px;
-     background-color: #fff;
-     border: 1px solid #ebeef5;
+.el-data-tree {
+  overflow: hidden;
+  transition: 0.3s;
 
-     &:hover, &:focus {
-       box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-     }
-   }
+  &.has-border {
+    border-radius: 4px;
+    background-color: #fff;
+    border: 1px solid #ebeef5;
 
-    .body {
-      padding: 1rem;
-    }
-
-    .data-tree-title {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 18px 20px;
-      margin: 0;
-      border-bottom: 1px solid #ebeef5;
-      box-sizing: border-box;
-      .el-icon-plus {
-        cursor: pointer;
-      }
-    }
-    .data-tree {
-      padding-top: 8px;
-    }
-    .custom-tree-node {
-      overflow: hidden;
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 14px;
-      padding-right: 8px;
-    }
-    .custom-tree-node-label {
-      overflow: hidden;
-      text-overflow: ellipsis
+    &:hover, &:focus {
+      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
     }
   }
+
+  .body {
+    padding: 1rem;
+  }
+
+  .data-tree-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 20px;
+    margin: 0;
+    border-bottom: 1px solid #ebeef5;
+    box-sizing: border-box;
+
+    .el-icon-plus {
+      cursor: pointer;
+    }
+  }
+
+  .data-tree {
+    padding-top: 8px;
+  }
+
+  .custom-tree-node {
+    overflow: hidden;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+    padding-right: 8px;
+  }
+
+  .custom-tree-node-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .delete-button {
+    color: $delete-color;
+
+    &:hover, &:focus {
+      color: $delete-color;
+    }
+  }
+}
 </style>
