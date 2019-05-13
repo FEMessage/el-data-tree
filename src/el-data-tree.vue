@@ -1,11 +1,27 @@
 <template>
   <div class="el-data-tree" :class="{'has-border': hasBorder }">
-    <slot name="title" v-if="hasTitle">
-      <p class="data-tree-title">
-        {{ title }}
-        <i class="el-icon-plus" @click="onDefaultNew"></i>
-      </p>
-    </slot>
+    <header class="header" v-if="hasTitle || hasHeader">
+      <div class="header-left">
+        <!--@slot 标题 -->
+        <slot name="title">
+          <p class="header-title">{{ title }}</p>
+        </slot>
+      </div>
+      <div class="header-right">
+        <span class="header-new-btn" @click="onDefaultNew">
+          <!--@slot 头部新增按钮 -->
+          <slot name="header-new-btn">
+            <el-button type="text" size="mini">
+              <i class="el-icon-plus"></i>
+            </el-button>
+          </slot>
+        </span>
+        <span class="header-extra-block">
+          <!--@slot 标题栏右边的额外区域-->
+          <slot name="header-extra-block"></slot>
+        </span>
+      </div>
+    </header>
 
     <section class="body">
       <el-input
@@ -245,9 +261,17 @@ export default {
       default: true
     },
     /**
-     * 是否有标题栏
+     * @deprecated
+     * 是否有标题栏，建议使用 hasHeader
      */
     hasTitle: {
+      type: Boolean,
+      default: false
+    },
+    /**
+     * 是否有标题栏
+     */
+    hasHeader: {
       type: Boolean,
       default: false
     },
@@ -657,8 +681,36 @@ $delete-color = #E24156;
     }
   }
 
+  .header {
+    display: flex;
+    align-items: center;
+    padding: 18px 20px;
+    border-bottom: 1px solid #ebeef5;
+
+    .header-left, .header-right {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    .header-right {
+      justify-content: flex-end;
+    }
+
+    .header-title {
+      margin: 0;
+      color: #303133;
+      display: inline-block;
+      padding-right: 10px;
+    }
+
+    .header-new-btn, .header-extra-block {
+      margin-left: 10px;
+    }
+  }
+
   .body {
-    padding: 1rem;
+    padding: 20px;
   }
 
   .data-tree-title {
