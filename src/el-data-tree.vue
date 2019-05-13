@@ -29,7 +29,12 @@
         class="custom-tree-node"
         slot-scope="{node, data}"
       >
-        <span class="custom-tree-node-label">{{ node.label }}</span>
+        <span class="custom-tree-node-label">
+          <!-- @slot 可定制的节点标签内容, 参数为 { data } -->
+          <slot name="node-label" :data="data">
+            {{ node.label }}
+          </slot>
+        </span>
         <span @click="e => e.stopPropagation()" v-if="hasOperation">
           <el-dropdown
             trigger="click"

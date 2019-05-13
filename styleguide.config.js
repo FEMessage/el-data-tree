@@ -8,7 +8,8 @@ const docs = [
   'configure-el-tree',
   'multi-select-nodes',
   'memorize-expansion',
-  'custom-menu'
+  'custom-menu',
+  'slot-node-label'
 ]
 
 const demoSections = docs.map(name => ({
