@@ -9,6 +9,7 @@ const docs = [
   'multi-select-nodes',
   'memorize-expansion',
   'custom-menu',
+  'extra-buttons-type',
   'slot-node-label'
 ]
 
