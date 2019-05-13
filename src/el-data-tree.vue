@@ -1,10 +1,10 @@
 <template>
-  <div class="el-data-tree">
+  <div class="el-data-tree" :class="{'is-bordered': hasBorder }">
     <slot name="title" v-if="hasTitle">
       <p class="data-tree-title">{{ title }}<i class="el-icon-plus" @click="onDefaultNew"></i></p>
     </slot>
 
-    <div class="el-data-tree__body">
+    <section class="body">
       <el-input
         placeholder="查询"
         v-if="showFilter"
@@ -54,7 +54,7 @@
           </span>
         </span>
       </el-tree>
-    </div>
+    </section>
 
     <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" @close="closeDialog">
       <!--https://github.com/FEMessage/el-form-renderer-->
@@ -99,6 +99,13 @@ export default {
     title: {
       type: String,
       default: ''
+    },
+    /**
+     * 是否有边框
+     */
+    hasBorder: {
+      type: Boolean,
+      default: true
     },
     /**
      * tree attributes
@@ -599,18 +606,20 @@ export default {
 
 <style lang="stylus">
   .el-data-tree {
-    color: #303133;
     overflow: hidden;
     transition: 0.3s;
-    border-radius: 4px;
-    background-color: #fff;
-    border: 1px solid #ebeef5;
 
-    &:hover, &:focus {
-      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-    }
+    &.is-bordered {
+     border-radius: 4px;
+     background-color: #fff;
+     border: 1px solid #ebeef5;
 
-    &__body {
+     &:hover, &:focus {
+       box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+     }
+   }
+
+    .body {
       padding: 1rem;
     }
 
