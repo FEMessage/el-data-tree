@@ -1,6 +1,6 @@
 {
   "name": "@femessage/el-data-tree",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "base on element-ui, makes crud easily",
   "author": "https://github.com/FEMessage",
   "license": "MIT",
@@ -8,35 +8,38 @@
     "type": "git",
     "url": "https://github.com/FEMessage/el-data-tree.git"
   },
-  "keywords": ["vue", "element-ui", "tree", "data-tree", "element tree"],
-  "files": ["src", "dist", "yarn.lock"],
+  "keywords": [
+    "vue",
+    "element-ui",
+    "tree",
+    "data-tree",
+    "element tree"
+  ],
+  "files": [
+    "src",
+    "dist",
+    "yarn.lock"
+  ],
   "main": "dist/el-data-tree.umd.js",
   "module": "dist/el-data-tree.esm.js",
   "unpkg": "dist/el-data-tree.min.js",
   "browser": {
     "./sfc": "src/el-data-tree.vue"
   },
-
   "scripts": {
     "dev": "vue-styleguidist server",
     "doc": "vue-styleguidist build",
-    "build":
-      "npm run build:unpkg & npm run build:es & npm run build:umd & npm run doc",
-    "build:umd":
-      "rollup --config build/rollup.config.js --format umd --file dist/el-data-tree.umd.js",
-    "build:es":
-      "rollup --config build/rollup.config.js --format es --file dist/el-data-tree.esm.js",
-    "build:unpkg":
-      "rollup --config build/rollup.config.js --format iife --file dist/el-data-tree.min.js",
+    "build": "npm run build:unpkg & npm run build:es & npm run build:umd & npm run doc",
+    "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/el-data-tree.umd.js",
+    "build:es": "rollup --config build/rollup.config.js --format es --file dist/el-data-tree.esm.js",
+    "build:unpkg": "rollup --config build/rollup.config.js --format iife --file dist/el-data-tree.min.js",
     "precommit": "pretty-quick --staged",
     "stdver": "standard-version -m '[skip ci] chore(release): v%s'",
     "release": "gren release --override"
   },
-
   "dependencies": {
     "lodash.get": "^4.4.2"
   },
-
   "devDependencies": {
     "@babel/core": "^7.4.3",
     "@babel/plugin-transform-runtime": "^7.4.3",
@@ -67,13 +70,10 @@
     "vue-template-compiler": "^2.5.16",
     "webpack": "^4.29.6"
   },
-
   "publishConfig": {
     "access": "public"
   },
-
   "vue-sfc-cli": "1.6.0",
-
   "engines": {
     "node": ">= 4.0.0",
     "npm": ">= 3.0.0"
