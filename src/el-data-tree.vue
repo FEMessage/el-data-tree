@@ -1,58 +1,60 @@
 <template>
-  <div class="el-data-tree">
+  <div class="el-data-tree" :class="{'is-bordered': hasBorder }">
     <slot name="title" v-if="hasTitle">
       <p class="data-tree-title">{{ title }}<i class="el-icon-plus" @click="onDefaultNew"></i></p>
     </slot>
 
-    <el-input
-      placeholder="查询"
-      v-if="showFilter"
-      v-model="filterText"
-      suffix-icon="el-icon-search"
-      clearable
-    >
-    </el-input>
-    <el-tree
-      ref="tree"
-      v-loading="loading"
-      :data="treeData"
-      v-bind="treeAttributes"
-      :filterNodeMethod="filterNode"
-      :defaultExpandedKeys="expandedKeys"
-      v-on="$listeners"
-      @node-expand="handleNodeExpand"
-      @node-collapse="handleNodeCollapse"
-      @check-change="handleCheckChange"
-      class="data-tree"
-    >
-      <span
-        class="custom-tree-node"
-        slot-scope="{node, data}"
+    <section class="body">
+      <el-input
+        placeholder="查询"
+        v-if="showFilter"
+        v-model="filterText"
+        suffix-icon="el-icon-search"
+        clearable
       >
-        <span class="custom-tree-node-label">{{ node.label }}</span>
-        <span @click="e => e.stopPropagation()" v-if="hasOperation">
-          <el-dropdown
-            trigger="click"
-            @command="command => handleCommand(command, data, node)"
-          >
-            <span class="el-dropdown-link"><i class="el-icon-more"></i></span>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item v-if="hasNew" command="new">{{ newText }}</el-dropdown-item>
-              <el-dropdown-item v-if="hasEdit" command="edit">{{ editText }}</el-dropdown-item>
-              <el-dropdown-item
-                v-for="(btn, i) in extraButtons.filter(btn => !btn.show || btn.show(data, node))"
-                :key="i"
-                v-bind="btn"
-                :command="btn.text"
-              >
-                {{ btn.text }}
-              </el-dropdown-item>
-              <el-dropdown-item v-if="hasDelete" command="delete">{{ deleteText }}</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
+      </el-input>
+      <el-tree
+        ref="tree"
+        v-loading="loading"
+        :data="treeData"
+        v-bind="treeAttributes"
+        :filterNodeMethod="filterNode"
+        :defaultExpandedKeys="expandedKeys"
+        v-on="$listeners"
+        @node-expand="handleNodeExpand"
+        @node-collapse="handleNodeCollapse"
+        @check-change="handleCheckChange"
+        class="data-tree"
+      >
+        <span
+          class="custom-tree-node"
+          slot-scope="{node, data}"
+        >
+          <span class="custom-tree-node-label">{{ node.label }}</span>
+          <span @click="e => e.stopPropagation()" v-if="hasOperation">
+            <el-dropdown
+              trigger="click"
+              @command="command => handleCommand(command, data, node)"
+            >
+              <span class="el-dropdown-link"><i class="el-icon-more"></i></span>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item v-if="hasNew" command="new">{{ newText }}</el-dropdown-item>
+                <el-dropdown-item v-if="hasEdit" command="edit">{{ editText }}</el-dropdown-item>
+                <el-dropdown-item
+                  v-for="(btn, i) in extraButtons.filter(btn => !btn.show || btn.show(data, node))"
+                  :key="i"
+                  v-bind="btn"
+                  :command="btn.text"
+                >
+                  {{ btn.text }}
+                </el-dropdown-item>
+                <el-dropdown-item v-if="hasDelete" command="delete">{{ deleteText }}</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+          </span>
         </span>
-      </span>
-    </el-tree>
+      </el-tree>
+    </section>
 
     <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" @close="closeDialog">
       <!--https://github.com/FEMessage/el-form-renderer-->
@@ -97,6 +99,13 @@ export default {
     title: {
       type: String,
       default: ''
+    },
+    /**
+     * 是否有边框
+     */
+    hasBorder: {
+      type: Boolean,
+      default: true
     },
     /**
      * tree attributes
@@ -597,6 +606,23 @@ export default {
 
 <style lang="stylus">
   .el-data-tree {
+    overflow: hidden;
+    transition: 0.3s;
+
+    &.is-bordered {
+     border-radius: 4px;
+     background-color: #fff;
+     border: 1px solid #ebeef5;
+
+     &:hover, &:focus {
+       box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+     }
+   }
+
+    .body {
+      padding: 1rem;
+    }
+
     .data-tree-title {
       padding: 8px;
       font-weight: bold;
