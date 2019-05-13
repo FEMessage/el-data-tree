@@ -5,6 +5,7 @@ const docs = [
   'basic',
   'dynamic-url',
   'filter-nodes',
+  'with-tree-header',
   'configure-el-tree',
   'multi-select-nodes',
   'memorize-expansion',

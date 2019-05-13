@@ -1,18 +1,35 @@
 <template>
-  <div class="el-data-tree">
-    <slot name="title" v-if="hasTitle">
-      <p class="data-tree-title">{{ title }}<i class="el-icon-plus" @click="onDefaultNew"></i></p>
-    </slot>
+  <div class="el-data-tree" :class="{'is-bordered': hasBorder }">
+    <header class="data-tree-header" v-if="hasTitle">
+      <div class="header-left">
+        <p class="header-title">{{ title }}</p>
+        <!--@slot 标题右侧内容 -->
+        <slot name="subTitle"></slot>
+      </div>
+      <div class="header-right">
+        <span class="header-btn" @click="onDefaultNew">
+          <!--@slot 默认新增按钮，可替换为普通按钮 -->
+          <slot name="defaultNewBtn">
+            <el-button type="text" size="mini">
+              <i class="el-icon-plus"></i>
+            </el-button>
+          </slot>
+        </span>
+        <span class="header-extra-buttons">
+          <!--@slot 标题栏右边的按钮组，可放多个按钮 -->
+          <slot name="headerExtraButtons"></slot>
+        </span>
+      </div>
+    </header>
 
-    <div class="el-data-tree__body">
+    <section class="data-tree-body">
       <el-input
         placeholder="查询"
         v-if="showFilter"
         v-model="filterText"
         suffix-icon="el-icon-search"
         clearable
-      >
-      </el-input>
+      ></el-input>
       <el-tree
         ref="tree"
         v-loading="loading"
@@ -26,17 +43,13 @@
         @check-change="handleCheckChange"
         class="data-tree"
       >
-        <span
-          class="custom-tree-node"
-          slot-scope="{node, data}"
-        >
+        <span class="custom-tree-node" slot-scope="{node, data}">
           <span class="custom-tree-node-label">{{ node.label }}</span>
           <span @click="e => e.stopPropagation()" v-if="hasOperation">
-            <el-dropdown
-              trigger="click"
-              @command="command => handleCommand(command, data, node)"
-            >
-              <span class="el-dropdown-link"><i class="el-icon-more"></i></span>
+            <el-dropdown trigger="click" @command="command => handleCommand(command, data, node)">
+              <span class="el-dropdown-link">
+                <i class="el-icon-more"></i>
+              </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item v-if="hasNew" command="new">{{ newText }}</el-dropdown-item>
                 <el-dropdown-item v-if="hasEdit" command="edit">{{ editText }}</el-dropdown-item>
@@ -45,16 +58,14 @@
                   :key="i"
                   v-bind="btn"
                   :command="btn.text"
-                >
-                  {{ btn.text }}
-                </el-dropdown-item>
+                >{{ btn.text }}</el-dropdown-item>
                 <el-dropdown-item v-if="hasDelete" command="delete">{{ deleteText }}</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </span>
         </span>
       </el-tree>
-    </div>
+    </section>
 
     <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" @close="closeDialog">
       <!--https://github.com/FEMessage/el-form-renderer-->
@@ -99,6 +110,13 @@ export default {
     title: {
       type: String,
       default: ''
+    },
+    /**
+     * 是否有边框
+     */
+    hasBorder: {
+      type: Boolean,
+      default: true
     },
     /**
      * tree attributes
@@ -598,48 +616,69 @@ export default {
 </script>
 
 <style lang="stylus">
-  .el-data-tree {
-    color: #303133;
-    overflow: hidden;
-    transition: 0.3s;
+.el-data-tree {
+  overflow: hidden;
+  transition: 0.3s;
+
+  &.is-bordered {
     border-radius: 4px;
-    background-color: #fff;
     border: 1px solid #ebeef5;
 
     &:hover, &:focus {
       box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
     }
+  }
 
-    &__body {
-      padding: 1rem;
-    }
+  .data-tree-header {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #ebeef5;
 
-    .data-tree-title {
-      padding: 8px;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      .el-icon-plus {
-        cursor: pointer;
-      }
-    }
-    .data-tree {
-      padding-top: 8px;
-    }
-    .custom-tree-node {
-      overflow: hidden;
+    .header-left, .header-right {
       flex: 1;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      font-size: 14px;
-      padding-right: 8px;
     }
-    .custom-tree-node-label {
-      overflow: hidden;
-      text-overflow: ellipsis
+
+    .header-right {
+      justify-content: flex-end;
+    }
+
+    .header-title {
+      margin: 0;
+      color: #303133;
+      display: inline-block;
+      padding-right: 0.8em;
+    }
+
+    .header-btn,
+    .header-extra-buttons {
+      margin-left: 1em;
     }
   }
+
+  .data-tree-body {
+    padding: 1rem;
+  }
+
+  .data-tree {
+    padding-top: 8px;
+  }
+
+  .custom-tree-node {
+    overflow: hidden;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+    padding-right: 8px;
+  }
+
+  .custom-tree-node-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
 </style>
