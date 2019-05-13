@@ -17,6 +17,7 @@
       v-loading="loading"
       :data="treeData"
       v-bind="treeAttributes"
+      :draggable="isDraggable"
       :filterNodeMethod="filterNode"
       :defaultExpandedKeys="expandedKeys"
       v-on="$listeners"
@@ -191,6 +192,13 @@ export default {
       default() {
         return {}
       }
+    },
+    /**
+     * 节点是否可拖拽
+     */
+    isDraggable: {
+      type: Boolean,
+      default: false
     },
     /**
      * 是否有操作列
