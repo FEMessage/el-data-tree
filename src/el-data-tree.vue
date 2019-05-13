@@ -8,7 +8,7 @@
         </slot>
       </div>
       <div class="header-right">
-        <span class="header-button" @click="onDefaultNew">
+        <span class="header-new-button" @click="onDefaultNew">
           <!--@slot 头部新增按钮 -->
           <slot name="header-new-btn">
             <el-button type="text" size="mini">
@@ -704,7 +704,7 @@ $delete-color = #E24156;
       padding-right: 10px;
     }
 
-    .header-button, .header-extra-block {
+    .header-new-button, .header-extra-block {
       margin-left: 10px;
     }
   }
