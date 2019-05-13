@@ -1,5 +1,5 @@
 <template>
-  <div class="el-data-tree" :class="{'has-bordered': hasBorder }">
+  <div class="el-data-tree" :class="{'has-border': hasBorder }">
     <slot name="title" v-if="hasTitle">
       <p class="data-tree-title">{{ title }}<i class="el-icon-plus" @click="onDefaultNew"></i></p>
     </slot>
@@ -609,7 +609,7 @@ export default {
     overflow: hidden;
     transition: 0.3s;
 
-    &.has-bordered {
+    &.has-border {
      border-radius: 4px;
      background-color: #fff;
      border: 1px solid #ebeef5;
