@@ -254,13 +254,6 @@ export default {
       }
     },
     /**
-     * 节点是否可拖拽
-     */
-    isDraggable: {
-      type: Boolean,
-      default: false
-    },
-    /**
      * 是否有操作列
      */
     hasOperation: {
