@@ -3,6 +3,7 @@ const path = require('path')
 
 const docs = [
   'basic',
+  'drag',
   'has-header',
   'dynamic-url',
   'filter-nodes',
