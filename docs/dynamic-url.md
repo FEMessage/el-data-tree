@@ -15,7 +15,13 @@ export default {
   },
   methods: {
     handleClick() {
-      this.url = this.url ? '' : this.getUrl
+      const url = {
+        base: 'https://www.easy-mock.com/mock/5c6783930df0c43ba31aca2b/femessage-mock/el-data-tree'
+      }
+      ;['get', 'post', 'edit', 'delete'].forEach(m => {
+        url[m] = url.base + `/on-${m}`
+      })
+      this.url = url.get
     }
   }
 }

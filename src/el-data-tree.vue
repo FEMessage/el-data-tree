@@ -101,7 +101,7 @@
     </section>
 
     <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" @close="closeDialog">
-      <!--https://github.com/FEMessage/el-form-renderer-->
+      <!--https://femessage.github.io/el-form-renderer/-->
       <el-form-renderer :content="form" ref="dialogForm" v-bind="formAttrs">
         <!--@slot 额外的弹窗表单内容, 当form不满足需求时可以使用 -->
         <slot name="form"></slot>
@@ -217,7 +217,7 @@ export default {
     },
     /**
      * 弹窗表单, 用于新增与修改, 详情配置参考 @femessage/el-form-renderer
-     * @link https://github.com/FEMessage/el-form-renderer/blob/master/README.md
+     * @link https://femessage.github.io/el-form-renderer/
      */
     form: {
       type: Array,
