@@ -44,9 +44,11 @@
         @check-change="handleCheckChange"
         class="data-tree"
       >
+        <!-- @slot 可定制的节点标签内容, 参数为 { data } -->
+        <slot v-if="false" name="node-label"></slot>
+        <!-- HACK: @slot无法在slot-scope下提取文档，已向vue-styleguidist提issue#431 -->
         <span class="custom-tree-node" slot-scope="{node, data}">
           <span class="custom-tree-node-label">
-            <!-- @slot 可定制的节点标签内容, 参数为 { data } -->
             <slot name="node-label" :data="data">{{ node.label }}</slot>
           </span>
           <span @click="e => e.stopPropagation()" v-if="hasOperation">
