@@ -8,15 +8,14 @@
 <script>
 export default {
   data() {
-    const url = {
-      base: 'https://www.easy-mock.com/mock/5c6783930df0c43ba31aca2b/femessage-mock/el-data-tree'
-    }
-    ;['get', 'post', 'edit', 'delete'].forEach(m => {
-      url[m] = url.base + `/on-${m}`
-    })
+    const baseUrl = 'https://www.easy-mock.com/mock/5c6783930df0c43ba31aca2b/femessage-mock/el-data-tree'
+    const getUrl = baseUrl + '/on-get'
+    const postUrl = baseUrl + '/on-post'
+    const editUrl = baseUrl + '/on-edit'
     return {
-      url: url.get,
+      url: getUrl,
       dataPath: 'data.payload',
+      hasDelete: false,
       form: [
         {
           $id: 'name',
@@ -28,13 +27,10 @@ export default {
         }
       ],
       onNew: (data) => {
-        return this.$axios.post(url.post, data)
+        return this.$axios.post(postUrl, data)
       },
       onEdit: (data) => {
-        return this.$axios.put(url.edit, data)
-      },
-      onDelete: (data) => {
-        return this.$axios.delete(url.delete, data)
+        return this.$axios.put(editUrl, data)
       },
       extraParams: {
         hello: 'world'
