@@ -413,6 +413,10 @@ export default {
     }
   },
   methods: {
+    /**
+     * 更新树形列表
+     * @public
+     */
     fetchData() {
       //如果url为空，则不发送请求
       if (!this.url) {
@@ -457,6 +461,7 @@ export default {
     /**
      * 获取el-tree对象，方便调用其方法
      * @returns {tree object}
+     * @public
      */
     getTree() {
       return this.$refs.tree
@@ -474,6 +479,11 @@ export default {
       const nodeKey = this.treeAttributes.nodeKey
       this.$emit('update:checkedKeys', checkNodes.map(item => item[nodeKey]))
     },
+    /**
+     * 选中指定节点
+     * @param {array} keys - 选中的节点的 key 所组成的数组
+     * @public
+     */
     updateCheckedKeys(keys) {
       //设置checkedKeys的时候，设置父节点，子节点全部也被选中了
       //解决方案：过滤掉有孩子节点的key，不设置checked状态
