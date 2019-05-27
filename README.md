@@ -11,25 +11,23 @@
 
 ![image-20190214162009754](./assets/20190221.gif)
 
-## Table of Contents
+## Table of Contents <!-- omit in toc -->
 
-* [el-data-tree](#el-data-tree)
-  * [Table of Contents](#table-of-contents)
-  * [Introduction](#introduction)
-    * [CRUD](#crud)
-  * [Feature](#feature)
-  * [Demo](#demo)
-  * [pre install](#pre-install)
-  * [Install](#install)
-  * [Quick Start](#quick-start)
-    * [global register component](#global-register-component)
-    * [template](#template)
-  * [Api](#api)
-    * [Attributes](#attributes)
-    * [Methods](#methods)
-    * [Events](#events)
-    * [Scoped Slot](#scoped-slot)
-  * [License](#license)
+* [Introduction](#introduction)
+  * [CRUD](#crud)
+* [Feature](#feature)
+* [Demo](#demo)
+* [pre install](#pre-install)
+* [Install](#install)
+* [Quick Start](#quick-start)
+  * [global register component](#global-register-component)
+  * [template](#template)
+* [Api](#api)
+  * [Attributes](#attributes)
+  * [Methods](#methods)
+  * [Events](#events)
+  * [Scoped Slot](#scoped-slot)
+* [License](#license)
 
 ## Introduction
 
