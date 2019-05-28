@@ -7,14 +7,8 @@
  <script>
 export default {
   data() {
-    const url = {
-      base: 'https://www.easy-mock.com/mock/5c6783930df0c43ba31aca2b/femessage-mock/el-data-tree'
-    }
-    ;['get', 'post', 'edit', 'delete'].forEach(m => {
-      url[m] = url.base + `/on-${m}`
-    })
     return {
-      url: url.get,
+      url: 'https://easy-mock.com/mock/5c1b3895fe5907404e654045/femessage-mock/el-data-tree',
       showFilter: true,
       dataPath: 'data.payload'
     }
