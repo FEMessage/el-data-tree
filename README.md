@@ -11,35 +11,23 @@
 
 ![image-20190214162009754](./assets/20190221.gif)
 
-## Table of Contents
+## Table of Contents <!-- omit in toc -->
 
-* [el-data-tree](#el-data-tree)
-  * [Table of Contents](#table-of-contents)
-  * [Introduction](#introduction)
-    * [CRUD](#crud)
-  * [Feature](#feature)
-  * [Demo](#demo)
-  * [pre install](#pre-install)
-  * [Install](#install)
-  * [Quick Start](#quick-start)
-    * [global register component](#global-register-component)
-    * [template](#template)
-  * [Example](#example)
-    * [basic](#basic)
-    * [url](#url)
-    * [new/edit form](#newedit-form)
-    * [extraButtons](#extrabuttons)
-    * [beforeConfirm](#beforeconfirm)
-    * [onDelete](#ondelete)
-    * [extraParams on new/edit](#extraparams-on-newedit)
-    * [customQuery on search](#customquery-on-search)
-    * [drag](#drag)
-  * [Api](#api)
-    * [Attributes](#attributes)
-    * [Methods](#methods)
-    * [Events](#events)
-    * [Scoped Slot](#scoped-slot)
-  * [License](#license)
+* [Introduction](#introduction)
+  * [CRUD](#crud)
+* [Feature](#feature)
+* [Demo](#demo)
+* [Pre Install](#pre-install)
+* [Install](#install)
+* [Quick Start](#quick-start)
+  * [Global Register Component](#global-register-component)
+  * [Template](#template)
+* [Api](#api)
+  * [Attributes](#attributes)
+  * [Methods](#methods)
+  * [Events](#events)
+  * [Scoped Slot](#scoped-slot)
+* [License](#license)
 
 ## Introduction
 
@@ -155,7 +143,7 @@ export default {
 
 [⬆ Back to Top](#table-of-contents)
 
-## pre install
+## Pre Install
 
 this component peerDependencies on [element-ui](http://element.eleme.io/#/zh-CN/component/tree) and [el-form-renderer](https://github.com/FEMessage/el-form-renderer) and [axios](https://github.com/axios/axios)
 
@@ -185,7 +173,7 @@ yarn add @femessage/el-data-tree
 
 ## Quick Start
 
-### global register component
+### Global Register Component
 
 this is for minification reason: in this way building your app,
 
@@ -236,7 +224,7 @@ Vue.prototype.$axios = axios
 
 [⬆ Back to Top](#table-of-contents)
 
-### template
+### Template
 
 ```vue
 <template>
@@ -245,283 +233,6 @@ Vue.prototype.$axios = axios
 ```
 
 [⬆ Back to Top](#table-of-contents)
-
-## Example
-
-### basic
-
-suppose the api response looks like this:
-
-```js
-{
-  "code": 0,
-  "msg": "ok",
-  "payload": {
-    "content": [] // the data to render
-  }
-}
-```
-
-we get setting
-
-```vue
-<el-data-tree
-  dataPath="payload.content"
->
-</el-data-tree>
-```
-
-that's the default setting, you can get your custom setting according to your api
-
-now I'll show you more code example, here we go🚴
-
-[⬆ Back to Top](#table-of-contents)
-
-### url
-
-```vue
-<!-- template -->
-<el-data-tree
-  :url="url"
->
-</el-data-tree>
-```
-
-```js
-// script
-export default {
-  data() {
-    return {
-      url:
-        'https://www.easy-mock.com/mock/5c6783930df0c43ba31aca2b/femessage-mock/el-data-tree/on-get'
-    }
-  }
-}
-```
-
-> if `url` change, the tree will reload
-
-[⬆ Back to Top](#table-of-contents)
-
-### new/edit form
-
-this will show new or edit form, when you click new or edit button
-
-```vue
-<!-- template -->
-<el-data-tree
-  :url="url"
-  :form="form"
->
-</el-data-tree>
-```
-
-```js
-// script
-form: [
-  {
-    $type: 'select',
-    $id: 'backendFramework',
-    label: '后端框架',
-    rules: [{required: true, message: '请选择后端框架', trigger: 'blur'}],
-    $options: ['DUBBO', 'HSF'].map(f => ({label: f, value: f})),
-    $el: {
-      placeholder: '请选择'
-    }
-  },
-  {
-    $type: 'input',
-    $id: 'name',
-    label: '名称',
-    rules: [
-      {
-        required: true,
-        message: '请输入名称',
-        trigger: 'blur',
-        transform: v => v && v.trim()
-      }
-    ],
-    $el: {placeholder: '请输入'}
-  }
-]
-```
-
-[⬆ Back to Top](#table-of-contents)
-
-### extraButtons
-
-extra buttons in operation column
-
-> attention: click function called `atClick`
-
-```vue
-<!-- template -->
-<el-data-tree
-  :url="url"
-  :extraButtons="extraButtons"
->
-</el-data-tree>
-```
-
-```js
-// script
-extraButtons: [
-  {
-    type: 'primary',
-    text: '跳转',
-    // data参数表示该节点所对应的对象,node表示当前节点
-    atClick: (data, node) => {
-      alert('跳转' + data.id)
-      return Promise.resolve()
-    }
-  }
-]
-```
-
-[⬆ Back to Top](#table-of-contents)
-
-### beforeConfirm
-
-在新增/修改弹窗点击确认, 并完成表单 form 表单校验后调用，需要返回 Promise.
-如果 resolve, 则会发送新增/修改请求; 如果 reject, 则不会发送新增/修改请求.
-参数: (data, isNew) data 为表单数据, isNew true 表示是新增弹窗, false 为 编辑弹窗
-
-```vue
-<el-data-tree
-  :beforeConfirm="beforeConfirm"
->
-</el-data-tree>
-```
-
-```js
-beforeConfirm(data, isNew) {
-  console.log(data, isNew)
-
-  if (isNew) {
-	alert('新增可以发送请求')
-	return Promise.resolve()
-  } else {
-	alert('修改不可以发送请求')
-	return Promise.reject()
-  }
-}
-```
-
-[⬆ Back to Top](#table-of-contents)
-
-### onDelete
-
-默认情况下:
-
-* 删除的请求格式是 DELETE url/id
-
-当不满足需求时, 可以使用 onDelete, 自定义删除方法, 返回 promise
-
-```vue
-<el-data-tree
-  onDelete="onDelete"
->
-</el-data-tree>
-```
-
-```js
-import Axios from 'axios'
-
-onDelete: (data, node) => {
-  return Axios.delete(
-    'https://www.easy-mock.com/mock/5bbefdf6faedce31cd6a5261/example/on-delete',
-    {
-      data: {
-        id: data.id
-      }
-    }
-  )
-}
-```
-
-[⬆ Back to Top](#table-of-contents)
-
-### extraParams on new/edit
-
-```js
-extraParams: {
-  version: 0,
-  isParent: false
-}
-```
-
-[⬆ Back to Top](#table-of-contents)
-
-### customQuery on search
-
-```js
-customQuery: {
-  type: this.$route.query.type
-}
-```
-
-[⬆ Back to Top](#table-of-contents)
-
-### drag
-
-下面给出一个配合后台接口进行拖拽排序的例子，逻辑如下：
-
-```vue
-<el-data-tree
-  :treeAttrs="{
-    draggable: true,
-    allowDrop: allowDrop
-  }"
-  @node-drop="onDrop"
->
-</el-data-tree>
-```
-
-```js
-import Axios from 'axios'
-
-/**
- * 算法如下
- * 假设node为拖拽的节点，拖拽后的顺序为: prev, node, next, 则 sort = prev.sort
- * @param dragNode
- * @param dropNode
- * @param dropType
- * @param ev
- */
-onDrop(dragNode, dropNode, dropType, ev) {
-  const firstSort = -1
-
-  // 默认是在后面插入
-  let sort = dropNode.data.sort
-  let parentId = dropNode.data.parentId
-
-  // 变为子节点
-  if (dropType === 'inner') {
-    sort = firstSort
-    parentId = dropNode.data.id
-  }
-
-  Axios.put(
-    'https://www.easy-mock.com/mock/5bbefdf6faedce31cd6a5261/example/sort',
-    {
-      data: {
-        id: dragNode.data.id,
-        parentId,
-        sort,
-        tag: dropNode.data.tag
-      }
-    }
-  )
-},
-allowDrop(dragNode, dropNode, dropType) {
-  // 当 prev 时, 意味着得到的是node与next两个节点, 无法根据算法求出sort值, 故什么也不做
-  return dropType !== 'prev'
-}
-```
-
-效果如下：
-
-![image-20190226190230958](./assets/20190222.gif)
 
 ## Api
 
