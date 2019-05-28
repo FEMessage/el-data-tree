@@ -21,12 +21,6 @@ export default {
           }
         }
       ],
-      onNew: (data) => {
-        return this.$axios.post(postUrl, data)
-      },
-      onEdit: (data) => {
-        return this.$axios.put(editUrl, data)
-      },
       extraParams: {
         hello: 'world'
       }
