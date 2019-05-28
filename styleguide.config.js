@@ -1,22 +1,11 @@
 const {VueLoaderPlugin} = require('vue-loader')
 const path = require('path')
+const glob = require('glob')
 
-const docs = [
-  'basic',
-  'has-header',
-  'dynamic-url',
-  'filter-nodes',
-  'configure-el-tree',
-  'multi-select-nodes',
-  'memorize-expansion',
-  'custom-menu',
-  'extra-buttons-type',
-  'slot-node-label'
-]
-
-const demoSections = docs.map(name => ({
-  name,
-  content: `docs/${name}.md`
+const demos = ['docs/basic.md', ...glob.sync('docs/!(basic).md')]
+const demoSections = demos.map(filePath => ({
+  name: path.basename(filePath, '.md'),
+  content: filePath
 }))
 
 module.exports = {

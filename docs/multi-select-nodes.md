@@ -4,7 +4,6 @@
 <template>
   <div>
     <el-data-tree v-bind="$data" 
-      :url="getUrl"
       :checkedKeys.sync="checkedKeys" 
       @check-change="handleCheckChange"
       ref="tree" />
@@ -20,6 +19,7 @@
 export default {
   data() {
     return {
+      url: 'https://easy-mock.com/mock/5c1b3895fe5907404e654045/femessage-mock/el-data-tree',
       treeAttrs: {
         showCheckbox: true
       },
