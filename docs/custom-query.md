@@ -1,11 +1,10 @@
-基础用法
+请求数据时携带的参数
 
-```vue
+ ```vue
 <template>
   <el-data-tree v-bind="$data" />
 </template>
-
-<script>
+ <script>
 export default {
   data() {
     return {
@@ -21,6 +20,9 @@ export default {
           }
         }
       ],
+      customQuery: {
+        hello: 'world'
+      }
     }
   },
 }

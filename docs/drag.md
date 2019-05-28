@@ -2,48 +2,21 @@
 
 ```vue
 <template>
-  <el-data-tree
-    v-bind="$data"
-    :url="getUrl"
-    @node-drop="onDrop"
-    :onNew="onNew"
-    :onEdit="onEdit"
-    :onDelete="onDelete"
-  />
+  <el-data-tree v-bind="$data" @node-drop="onDrop" />
 </template>
 
 <script>
-'import Axios from 'axios''
-
 export default {
   data() {
     return {
+      url: 'https://easy-mock.com/mock/5c1b3895fe5907404e654045/femessage-mock/el-data-tree',
       dataPath: 'data.payload',
       treeAttrs: {
         draggable: true
       },
-      form: [
-        {
-          $id: 'name',
-          $type: 'input',
-          label: '名字',
-          $el: {
-            placeholder: '请输入'
-          }
-        }
-      ]
     }
   },
   methods: {
-    onNew(data) {
-      return this.$axios.post(this.postUrl, data)
-    },
-    onEdit(data) {
-      return this.$axios.put(this.editUrl, data)
-    },
-    onDelete(data) {
-      return this.$axios.delete(this.deleteUrl, data)
-    },
     /**
      * 示例算法
      * 假设node为拖拽的节点，拖拽后的顺序为: prev, node, next, 则 sort = prev.sort
@@ -65,7 +38,7 @@ export default {
         parentId = dropNode.data.id
       }
 
-      Axios.put(
+      this.$axios.put(
         'https://www.easy-mock.com/mock/5bbefdf6faedce31cd6a5261/example/sort',
         {
           data: {
@@ -88,4 +61,4 @@ export default {
 
 示例
 
-![](https://github.com/FEMessage/el-data-tree/raw/dev/assets/20190222.gif)
+![示例](https://github.com/FEMessage/el-data-tree/raw/dev/assets/20190222.gif)
