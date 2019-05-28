@@ -15,7 +15,9 @@ export default {
   },
   methods: {
     handleClick() {
-      this.url = this.url ? '' : this.getUrl
+      const baseUrl = 'https://www.easy-mock.com/mock/5c6783930df0c43ba31aca2b/femessage-mock/el-data-tree'
+      const getUrl = baseUrl + '/on-get'
+      this.url = getUrl
     }
   }
 }

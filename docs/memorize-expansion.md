@@ -2,35 +2,22 @@
 
 ```vue
 <template>
-  <el-data-tree v-bind="$data" :url="getUrl" :onNew="onNew" :onEdit="onEdit" @node-expand="onNodeExpand" @node-collapse="onNodeCollapse" />
+  <el-data-tree v-bind="$data" @node-expand="onNodeExpand" @node-collapse="onNodeCollapse" />
 </template>
 <script>
 export default {
   data() {
+    const baseUrl = 'https://www.easy-mock.com/mock/5c6783930df0c43ba31aca2b/femessage-mock/el-data-tree'
+    const getUrl = baseUrl + '/on-get'
     return {
+      url: getUrl,
       dataPath: 'data.payload',
       treeAttrs: {
         defaultExpandedKeys: [92062]
       },
-      form: [
-        {
-          $id: 'name',
-          $type: 'input',
-          label: '名字',
-          $el: {
-            placeholder: '请输入'
-          }
-        }
-      ]
     }
   },
   methods: {
-    onNew(data, row) {
-      return this.$axios.post(this.postUrl, data)
-    },
-    onEdit(data, row) {
-      return this.$axios.put(this.editUrl, data)
-    },
     onNodeExpand(data, node, tree) {
       console.log('onNodeExpand', data, node, tree)
     },
