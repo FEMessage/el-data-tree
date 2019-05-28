@@ -2,7 +2,7 @@
   <div class="el-data-tree" :class="{'has-border': hasBorder }">
     <header class="header" v-if="hasTitle || hasHeader">
       <div class="header-left">
-        <!--@slot 标题 -->
+        <!--@slot 自定义标题 -->
         <slot name="title">
           <p class="header-title">{{ title }}</p>
         </slot>
@@ -152,7 +152,8 @@ export default {
       default: true
     },
     /**
-     * tree attributes
+     * el-tree 属性设置
+     * @link [el-tree文档](http://element-cn.eleme.io/#/zh-CN/component/tree)
      */
     treeAttrs: {
       type: Object,
@@ -216,8 +217,8 @@ export default {
       default: 'dropdown'
     },
     /**
-     * 弹窗表单, 用于新增与修改, 详情配置参考 @femessage/el-form-renderer
-     * @link https://github.com/FEMessage/el-form-renderer/blob/master/README.md
+     * 弹窗表单, 用于新增与修改
+     * @link [el-form-renderer文档](https://github.com/FEMessage/el-form-renderer/blob/master/README.md)
      */
     form: {
       type: Array,
@@ -226,8 +227,8 @@ export default {
       }
     },
     /**
-     * 弹窗表单属性设置, 详情配置参考element-ui官网
-     * @link http://element.eleme.io/#/zh-CN/component/form#form-attributes
+     * 弹窗表单属性设置
+     * @link [el-form文档](http://element.eleme.io/#/zh-CN/component/form#form-attributes)
      */
     formAttrs: {
       type: Object,
@@ -303,28 +304,28 @@ export default {
       type: Function
     },
     /**
-     * 点击新增按钮时的方法, 当默认新增方法不满足需求时使用, 需要返回promise
+     * 点击新增按钮时的方法, 当默认新增方法不满足需求时使用, 需要返回promise。
      * 参数(data, row) data 是form表单的数据, row 是当前行的数据
      */
     onNew: {
       type: Function
     },
     /**
-     * 点击修改按钮时的方法, 当默认修改方法不满足需求时使用, 需要返回promise
+     * 点击修改按钮时的方法, 当默认修改方法不满足需求时使用, 需要返回promise。
      * 参数(data, row) data 是form表单的数据, row 是当前行的数据
      */
     onEdit: {
       type: Function
     },
     /**
-     * 点击删除按钮时的方法, 当默认删除方法不满足需求时使用, 需要返回promise
+     * 点击删除按钮时的方法, 当默认删除方法不满足需求时使用, 需要返回promise。
      * 参数(data, row) data 是form表单的数据, row 是当前行的数据
      */
     onDelete: {
       type: Function
     },
     /**
-     * 在新增/修改弹窗 点击确认时调用，返回Promise, 如果reject, 则不会发送新增/修改请求
+     * 在新增/修改弹窗 点击确认时调用，返回Promise, 如果reject, 则不会发送新增/修改请求。
      * 参数: (data, isNew) data为表单数据, isNew true 表示是新增弹窗, false 为 编辑弹窗
      */
     beforeConfirm: {
@@ -411,6 +412,10 @@ export default {
     }
   },
   methods: {
+    /**
+     * 更新树形列表
+     * @public
+     */
     fetchData() {
       //如果url为空，则不发送请求
       if (!this.url) {
@@ -432,15 +437,12 @@ export default {
           this.updateCheckedKeys(this.checkedKeys)
           /**
            * 请求数据成功，返回transform处理后的值和接口返回的值
-           * @event loaded
+           * @property {object} treeData - tree的数据
+           * @property {object} res - 请求返回的完整 response
            */
           this.$emit('loaded', this.treeData, res)
         })
         .catch(error => {
-          /**
-           * 请求数据失败，返回err对象
-           * @event error
-           */
           this.$emit('error', error)
         })
         .finally(() => {
@@ -455,6 +457,7 @@ export default {
     /**
      * 获取el-tree对象，方便调用其方法
      * @returns {tree object}
+     * @public
      */
     getTree() {
       return this.$refs.tree
@@ -472,6 +475,11 @@ export default {
       const nodeKey = this.treeAttributes.nodeKey
       this.$emit('update:checkedKeys', checkNodes.map(item => item[nodeKey]))
     },
+    /**
+     * 选中指定节点
+     * @param {array} keys - 选中的节点的 key 所组成的数组
+     * @public
+     */
     updateCheckedKeys(keys) {
       //设置checkedKeys的时候，设置父节点，子节点全部也被选中了
       //解决方案：过滤掉有孩子节点的key，不设置checked状态
@@ -632,6 +640,11 @@ export default {
                 this.cancel()
               })
               .catch(err => {
+                /**
+                 * CRUD失败
+                 * @event error
+                 * @property {error} err
+                 */
                 this.$emit('error', err)
               })
               .finally(e => {

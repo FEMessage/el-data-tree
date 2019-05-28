@@ -22,11 +22,6 @@
 * [Quick Start](#quick-start)
   * [Global Register Component](#global-register-component)
   * [Template](#template)
-* [Api](#api)
-  * [Attributes](#attributes)
-  * [Methods](#methods)
-  * [Events](#events)
-  * [Scoped Slot](#scoped-slot)
 * [License](#license)
 
 ## Introduction
@@ -231,68 +226,6 @@ Vue.prototype.$axios = axios
   <el-data-tree></el-data-tree>
 </template>
 ```
-
-[⬆ Back to Top](#table-of-contents)
-
-## Api
-
-### Attributes
-
-| 参数          | 说明                                                                                                                                                                                                                                                       | 类型     | 默认值            |
-| ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ----------------- |
-| title         | 标题文字                                                                                                                                                                                                                                                   | String   | -                 |
-| url           | 请求 url, 如果为空, 则不会发送请求; 改变 url, 则 tree 会重新发送请求                                                                                                                                                                                       | String   | -                 |
-| treeAttrs     | el-tree 属性设置, 详情配置参考 [element-ui 官网](http://element-cn.eleme.io/#/zh-CN/component/tree)                                                                                                                                                        | Object   | -                 |
-| parentKey     | 修改时会用到,请求会根据定义的属性值获取 parentKey,即 row[this.parentKey]                                                                                                                                                                                   | String   | parentId          |
-| dataPath      | 接口返回的数据中的路径, 嵌套对象使用.表示即可                                                                                                                                                                                                              | Object   | payload.content   |
-| showFilter    | 是否展示过滤框                                                                                                                                                                                                                                             | Boolean  | false             |
-| checkedKeys   | 通过 checkedKeys 设置目前勾选的节点，支持.sync 修饰符                                                                                                                                                                                                      | Array    | -                 |
-| extraButtons  | 操作列的自定义菜单, 渲染的是 element-ui 的 dropdown, 支持包括 style 在内的以下属性: {type: '', text: '', atClick: (data, node) => Promise.resolve(), show: (data, node) => return true 时显示 } 点击事件 data 参数表示该节点所对应的对象,node 表示当前节点 | Array    | -                 |
-| form          | 弹窗表单, 用于新增与修改, 详情配置参考[@femessage/el-form-renderer](https://github.com/FEMessage/el-form-renderer/blob/master/README.md)                                                                                                                   | Array    | -                 |
-| formAttrs     | 弹窗表单属性设置, 详情配置参考 [element-ui 官网](http://element.eleme.io/#/zh-CN/component/form#form-attributes)                                                                                                                                           | Object   | -                 |
-| customQuery   | 外部的注入额外的查询参数, 键值对形式                                                                                                                                                                                                                       | Object   | -                 |
-| extraParams   | 新增/修改提交时注入额外的参数                                                                                                                                                                                                                              | Object   | -                 |
-| hasOperation  | 是否有操作列                                                                                                                                                                                                                                               | Boolean  | true              |
-| hasHeader     | 是否有标题栏                                                                                                                                                                                                                                               | Boolean  | false             |
-| hasDelete     | 是否有删除按钮                                                                                                                                                                                                                                             | Boolean  | true              |
-| hasNew        | 是否有新增按钮                                                                                                                                                                                                                                             | Boolean  | true              |
-| hasEdit       | 是否有编辑按钮                                                                                                                                                                                                                                             | Boolean  | true              |
-| transform     | 用于转换获取的数据为目标数据                                                                                                                                                                                                                               | Function | -                 |
-| onNew         | 点击新增按钮时的方法, 当默认新增方法不满足需求时使用, 需要返回 promise。参数(data, row) data 是 form 表单的数据, row 是当前行的数据                                                                                                                        | Function | -                 |
-| onEdit        | 点击修改按钮时的方法, 当默认修改方法不满足需求时使用, 需要返回 promise。参数(data, row) data 是 form 表单的数据, row 是当前行的数据                                                                                                                        | Function | -                 |
-| onDelete      | 点击删除按钮时的方法, 当默认删除方法不满足需求时使用, 需要返回 promise。参数(data, row) data 是 form 表单的数据, row 是当前行的数据                                                                                                                        | Function | -                 |
-| beforeConfirm | 在新增/修改弹窗 点击确认时调用，返回 Promise, 如果 reject, 则不会发送新增/修改请求。 参数: (data, isNew) data 为表单数据, isNew true 表示是新增弹窗, false 为 编辑弹窗                                                                                     | Function | Promise.resolve() |
-| newText       | 默认“新增”操作菜单文字                                                                                                                                                                                                                                     | String   | 新增              |
-| editText      | 默认“修改”操作菜单文字                                                                                                                                                                                                                                     | String   | 修改              |
-| deleteText    | 默认“删除”操作菜单文字                                                                                                                                                                                                                                     | String   | 删除              |
-
-[⬆ Back to Top](#table-of-contents)
-
-### Methods
-
-| 方法名            | 说明              | 参数                          |
-| ----------------- | ----------------- | ----------------------------- |
-| fetchData         | 更新树形列表      | -                             |
-| getTree           | 获取 el-tree 对象 | -                             |
-| updateCheckedKeys | 选中指定节点      | 选中的节点的 key 所组成的数组 |
-
-[⬆ Back to Top](#table-of-contents)
-
-### Events
-
-| 事件名称 | 说明                     | 回调参数                                                      |
-| -------- | ------------------------ | ------------------------------------------------------------- |
-| loaded   | 请求返回, 数据更新后触发 | 共两个参数，依次为：渲染 tree 的数据, 请求返回的完整 response |
-| error    | 请求数据失败             | 返回 err 对象                                                 |
-
-[⬆ Back to Top](#table-of-contents)
-
-### Scoped Slot
-
-| 名字  | 说明                                             |
-| ----- | ------------------------------------------------ |
-| title | 自定义标题内容                                   |
-| form  | 额外的弹窗表单内容, 当 form 不满足需求时可以使用 |
 
 [⬆ Back to Top](#table-of-contents)
 
