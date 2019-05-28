@@ -1,6 +1,6 @@
 {
   "name": "@femessage/el-data-tree",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "base on element-ui, makes crud easily",
   "author": "https://github.com/FEMessage",
   "license": "MIT",
