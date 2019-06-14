@@ -16,7 +16,6 @@
   "browser": {
     "./sfc": "src/el-data-tree.vue"
   },
-
   "scripts": {
     "dev": "vue-styleguidist server",
     "doc": "vue-styleguidist build",
@@ -32,11 +31,9 @@
     "stdver": "standard-version -m '[skip ci] chore(release): v%s'",
     "release": "gren release --override"
   },
-
   "dependencies": {
     "lodash.get": "^4.4.2"
   },
-
   "devDependencies": {
     "@babel/core": "^7.4.3",
     "@babel/plugin-transform-runtime": "^7.4.3",
@@ -67,13 +64,10 @@
     "vue-template-compiler": "^2.5.16",
     "webpack": "^4.29.6"
   },
-
   "publishConfig": {
     "access": "public"
   },
-
-  "vue-sfc-cli": "1.6.0",
-
+  "vue-sfc-cli": "1.10.0",
   "engines": {
     "node": ">= 4.0.0",
     "npm": ">= 3.0.0"
