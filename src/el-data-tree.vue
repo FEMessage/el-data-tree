@@ -37,7 +37,7 @@
         :data="treeData"
         v-bind="treeAttributes"
         :filterNodeMethod="filterNode"
-        :defaultExpandedKeys="expandedKeys"
+        :defaultExpandedKeys="defaultExpandedKeys"
         v-on="$listeners"
         @node-expand="handleNodeExpand"
         @node-collapse="handleNodeCollapse"
@@ -370,7 +370,11 @@ export default {
       // 要修改的那一行
       row: {},
 
-      expandedKeys: []
+      // 默认展开节点 keys
+      defaultExpandedKeys: [],
+
+      // 展开操作后的节点 keys，用于保存新增、编辑、删除等操作后的展开状态
+      cacheExpandedKeys: new Set()
     }
   },
   computed: {
@@ -401,17 +405,19 @@ export default {
     },
     checkedKeys(keys) {
       this.updateCheckedKeys(keys)
-    }
-  },
-  mounted() {
-    // 合并默认展开的key
-    if (this.treeAttributes.defaultExpandedKeys) {
-      this.expandedKeys = this.expandedKeys.concat(
-        this.treeAttributes.defaultExpandedKeys
-      )
+    },
+    'treeAttrs.defaultExpandedKeys': {
+      handler(val) {
+        val.forEach(item => this.cacheExpandedKeys.add(item))
+        this.updateDefaultExpandKeys()
+      },
+      immediate: true
     }
   },
   methods: {
+    updateDefaultExpandKeys() {
+      this.defaultExpandedKeys = [...this.cacheExpandedKeys]
+    },
     /**
      * 更新树形列表
      * @public
@@ -433,6 +439,8 @@ export default {
           const treeData = _get(res, this.dataPath) || []
           this.treeData =
             (this.transform && this.transform(treeData)) || treeData
+          // 保持展开状态，新增、删除、编辑不丢失数据
+          this.updateDefaultExpandKeys()
           // 确保树已经有数据后再设置选中状态
           this.updateCheckedKeys(this.checkedKeys)
           /**
@@ -570,11 +578,11 @@ export default {
     // 组件可以绑定多个相同的事件，不需要emit node-expand/node-collapse 来兼容el-tree
     handleNodeExpand(data) {
       const nodeKey = this.treeAttributes.nodeKey
-      this.expandedKeys.push(data[nodeKey])
+      this.cacheExpandedKeys.add(data[nodeKey])
     },
     handleNodeCollapse(data) {
       const nodeKey = this.treeAttributes.nodeKey
-      this.expandedKeys = this.expandedKeys.filter(key => key !== data[nodeKey])
+      this.cacheExpandedKeys.delete(data[nodeKey])
     },
 
     cancel() {
