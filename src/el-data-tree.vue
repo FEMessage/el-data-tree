@@ -49,7 +49,7 @@
             <!-- @slot 可定制的节点标签内容, 参数为 { data } -->
             <slot name="node-label" :data="data">{{ node.label }}</slot>
           </span>
-          <span @click="e => e.stopPropagation()" v-if="hasOperation">
+          <span @click="e => e.stopPropagation()" v-if="hasOperation" class="custom-tree-node-btns">
             <template v-if="extraButtonsType === 'text'">
               <el-button
                 v-if="hasNew"
@@ -760,11 +760,17 @@ $delete-color = #E24156;
     justify-content: space-between;
     font-size: 14px;
     padding-right: 8px;
-  }
 
-  .custom-tree-node-label {
-    overflow: hidden;
-    text-overflow: ellipsis;
+    .custom-tree-node-label {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .custom-tree-node-btns {
+      .el-button {
+        font-family: inherit;
+      }
+    }
   }
 
   .delete-button {
