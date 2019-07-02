@@ -564,10 +564,10 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
-"@femessage/el-form-renderer@^1.5.5":
-  version "1.5.5"
-  resolved "https://registry.npm.taobao.org/@femessage/el-form-renderer/download/@femessage/el-form-renderer-1.5.5.tgz#2693f7587e6810de9aaea79f2f5f97e463af0e5a"
-  integrity sha1-JpP3WH5oEN6arqefL1+X5GOvDlo=
+"@femessage/el-form-renderer@^1.6.0":
+  version "1.6.0"
+  resolved "https://registry.npm.taobao.org/@femessage/el-form-renderer/download/@femessage/el-form-renderer-1.6.0.tgz#43bbd94d3a21efe6b16564fdf6db7cfc2e646b11"
+  integrity sha1-Q7vZTToh7+axZWT99tt8/C5kaxE=
   dependencies:
     lodash.get "^4.4.2"
     lodash.set "^4.3.2"
