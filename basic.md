@@ -13,10 +13,10 @@ export default {
       dataPath: 'data.payload',
       form: [
         {
-          $id: 'name',
-          $type: 'input',
+          id: 'name',
+          type: 'input',
           label: '名字',
-          $el: {
+          el: {
             placeholder: '请输入'
           }
         }
