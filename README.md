@@ -11,6 +11,8 @@
 
 ![image-20190214162009754](./assets/20190221.gif)
 
+[English](./README-en.md)
+
 ## Table of Contents <!-- omit in toc -->
 
 * [Introduction](#introduction)
@@ -82,10 +84,10 @@ export default {
         showFilter: true,
         form: [
           {
-            $type: 'input',
-            $id: 'name',
+            type: 'input',
+            id: 'name',
             label: '用户名',
-            $el: {
+            el: {
               placeholder: '请输入'
             },
             rules: [
