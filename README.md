@@ -15,17 +15,17 @@
 
 ## Table of Contents <!-- omit in toc -->
 
-* [Introduction](#Introduction)
-  * [CRUD](#CRUD)
-* [Feature](#Feature)
-* [Demo](#Demo)
-* [Pre Install](#Pre-Install)
-* [Install](#Install)
-* [Quick Start](#Quick-Start)
-  * [Global Register Component](#Global-Register-Component)
-  * [Template](#Template)
-* [Contributors](#Contributors)
-* [License](#License)
+* [Introduction](#introduction)
+  * [CRUD](#crud)
+* [Feature](#feature)
+* [Demo](#demo)
+* [Pre Install](#pre-install)
+* [Install](#install)
+* [Quick Start](#quick-start)
+  * [Global Register Component](#global-register-component)
+  * [Template](#template)
+* [Contributors](#contributors)
+* [License](#license)
 
 ## Introduction
 
