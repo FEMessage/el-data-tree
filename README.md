@@ -9,23 +9,23 @@
 
 使用`axios`自动发送请求，支持筛选, 自定义操作列, 让 RESTful 风格的 CRUD 更简单 👏
 
-![image-20190214162009754](./assets/20190221.gif)
+![image-20190214162009754](https://cdn.nlark.com/yuque/0/2019/gif/304775/1563349479656-c6a6b52d-6b2b-4406-bc3e-b1aacae795f2.gif)
 
 [English](./README-en.md)
 
 ## Table of Contents <!-- omit in toc -->
 
-* [Introduction](#introduction)
-  * [CRUD](#crud)
-* [Feature](#feature)
-* [Demo](#demo)
-* [Pre Install](#pre-install)
-* [Install](#install)
-* [Quick Start](#quick-start)
-  * [Global Register Component](#global-register-component)
-  * [Template](#template)
-* [Contributors](#contributors)
-* [License](#license)
+* [Introduction](#Introduction)
+  * [CRUD](#CRUD)
+* [Feature](#Feature)
+* [Demo](#Demo)
+* [Pre Install](#Pre-Install)
+* [Install](#Install)
+* [Quick Start](#Quick-Start)
+  * [Global Register Component](#Global-Register-Component)
+  * [Template](#Template)
+* [Contributors](#Contributors)
+* [License](#License)
 
 ## Introduction
 
@@ -110,19 +110,19 @@ export default {
 
 * 查询
 
-![image-20190214165758093](./assets/20190221165504.png)
+![image-20190214165758093](https://cdn.nlark.com/yuque/0/2019/png/304775/1563349470430-32671f09-db40-44ba-a2dc-afbb26d1e16e.png)
 
 * 新增
 
-![image-20190214171329770](./assets/20190214171329770.png)
+![image-20190214171329770](https://cdn.nlark.com/yuque/0/2019/png/304775/1563349471728-feb393b5-8cbe-4635-afd1-80e59931cac9.png)
 
 * 修改
 
-![image-20190214171433211](./assets/20190214171433211.png)
+![image-20190214171433211](https://cdn.nlark.com/yuque/0/2019/png/304775/1563349471681-d64eba18-7e51-4b5b-9614-b799a51c6b13.png)
 
 * 删除
 
-![image-20190214171552422](./assets/20190214171552422.png)
+![image-20190214171552422](https://cdn.nlark.com/yuque/0/2019/png/304775/1563349471832-c6e18734-b91e-4731-bb8d-6c50fa894184.png)
 
 [⬆ Back to Top](#table-of-contents)
 

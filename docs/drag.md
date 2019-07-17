@@ -61,4 +61,4 @@ export default {
 
 示例
 
-![示例](https://github.com/FEMessage/el-data-tree/raw/dev/assets/20190222.gif)
+![示例](https://cdn.nlark.com/yuque/0/2019/gif/304775/1563349679054-d0803db9-da93-4a68-bae3-1147012e314a.gif)
