@@ -495,7 +495,7 @@ export default {
       const flattenTree = (array, children) =>
         array.reduce(
           (sum, node) =>
-            sum.concat(node[children] ? flattenTree(node[children]) : node),
+            sum.concat(node[children] ? flattenTree(node[children], children) : node),
           []
         )
       const treeAttrs = this.treeAttributes
