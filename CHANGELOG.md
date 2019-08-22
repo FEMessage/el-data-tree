@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.3](https://github.com/FEMessage/el-data-tree/compare/v0.4.2...v0.4.3) (2019-08-22)
+
+
+### Bug Fixes
+
+* **updateCheckedKeys:** 数据层级超过三层时子节点无法取消选中状态 ([f93e407](https://github.com/FEMessage/el-data-tree/commit/f93e407))
+
+
+
 ### [0.4.2](https://github.com/FEMessage/el-data-tree/compare/v0.4.1...v0.4.2) (2019-07-17)
 
 
