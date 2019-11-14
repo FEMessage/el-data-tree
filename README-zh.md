@@ -9,7 +9,7 @@
 
 使用`axios`自动发送请求，支持筛选, 自定义操作列, 让 RESTful 风格的 CRUD 更简单 👏
 
-![image-20190214162009754](https://cdn.nlark.com/yuque/0/2019/gif/304775/1563349479656-c6a6b52d-6b2b-4406-bc3e-b1aacae795f2.gif)
+![el-data-tree-crud.gif](https://i.loli.net/2019/11/14/xd3mkSXasu1oe2n.gif)
 
 ## Table of Contents <!-- omit in toc -->
 
@@ -108,19 +108,19 @@ export default {
 
 - 查询
 
-![image-20190214165758093](https://cdn.nlark.com/yuque/0/2019/png/304775/1563349470430-32671f09-db40-44ba-a2dc-afbb26d1e16e.png)
+![el-data-tree-search.png](https://i.loli.net/2019/11/14/onYZzKgP8lScEyi.png)
 
 - 新增
 
-![image-20190214171329770](https://cdn.nlark.com/yuque/0/2019/png/304775/1563349471728-feb393b5-8cbe-4635-afd1-80e59931cac9.png)
+![el-data-tree-add.png](https://i.loli.net/2019/11/14/NKjsl2Bf5ZQ39pb.png)
 
 - 修改
 
-![image-20190214171433211](https://cdn.nlark.com/yuque/0/2019/png/304775/1563349471681-d64eba18-7e51-4b5b-9614-b799a51c6b13.png)
+![el-data-tree-modify.png](https://i.loli.net/2019/11/14/QG2hpXIbrB1lZNv.png)
 
 - 删除
 
-![image-20190214171552422](https://cdn.nlark.com/yuque/0/2019/png/304775/1563349471832-c6e18734-b91e-4731-bb8d-6c50fa894184.png)
+![el-data-tree-delete.png](https://i.loli.net/2019/11/14/t7JmLonjlpRVq9K.png)
 
 [⬆ Back to Top](#table-of-contents)
 
