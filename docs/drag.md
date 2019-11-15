@@ -9,7 +9,7 @@
 export default {
   data() {
     return {
-      url: 'https://easy-mock.com/mock/5c1b3895fe5907404e654045/femessage-mock/el-data-tree',
+      url: 'https://mockapi.eolinker.com/IeZWjzy87c204a1f7030b2a17b00f3776ce0a07a5030a1b/el-data-tree',
       dataPath: 'data.payload',
       treeAttrs: {
         draggable: true
@@ -61,4 +61,4 @@ export default {
 
 示例
 
-![示例](https://cdn.nlark.com/yuque/0/2019/gif/304775/1563349679054-d0803db9-da93-4a68-bae3-1147012e314a.gif)
+![el-data-tree-drag _1_.gif](https://i.loli.net/2019/11/14/WCvnBc91zs6Rjp8.gif)
