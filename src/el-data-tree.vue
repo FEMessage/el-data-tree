@@ -1,6 +1,6 @@
 <template>
-  <div class="el-data-tree" :class="{'has-border': hasBorder }">
-    <header class="header" v-if="hasTitle || hasHeader">
+  <div class="el-data-tree" :class="{'has-border': hasBorder}">
+    <header v-if="hasTitle || hasHeader" class="header">
       <div class="header-left">
         <!--@slot 自定义标题 -->
         <slot name="title">
@@ -12,87 +12,103 @@
           <!--@slot 头部新增按钮 -->
           <slot name="header-new-btn">
             <el-button type="text" size="mini">
-              <i class="el-icon-plus"></i>
+              <i class="el-icon-plus" />
             </el-button>
           </slot>
         </span>
         <span class="header-extra-block">
           <!--@slot 标题栏右边的额外区域-->
-          <slot name="header-extra-block"></slot>
+          <slot name="header-extra-block" />
         </span>
       </div>
     </header>
 
     <section class="body">
       <el-input
-        placeholder="查询"
         v-if="showFilter"
         v-model="filterText"
+        placeholder="查询"
         suffix-icon="el-icon-search"
         clearable
-      ></el-input>
+      />
       <el-tree
         ref="tree"
         v-loading="loading"
         :data="treeData"
         v-bind="treeAttributes"
-        :filterNodeMethod="filterNode"
-        :defaultExpandedKeys="defaultExpandedKeys"
+        :filter-node-method="filterNode"
+        :default-expanded-keys="defaultExpandedKeys"
+        class="data-tree"
         v-on="$listeners"
         @node-expand="handleNodeExpand"
         @node-collapse="handleNodeCollapse"
         @check-change="handleCheckChange"
-        class="data-tree"
       >
-        <span class="custom-tree-node" slot-scope="{node, data}">
+        <span slot-scope="{node, data}" class="custom-tree-node">
+          <!-- TODO: span 应该放在 slot 里面，方便用户定制样式，比如让 node-label 宽度占据整行 -->
           <span class="custom-tree-node-label">
             <!-- @slot 可定制的节点标签内容, 参数为 { data } -->
             <slot name="node-label" :data="data">{{ node.label }}</slot>
           </span>
-          <span @click="e => e.stopPropagation()" v-if="hasOperation" class="custom-tree-node-btns">
+          <span v-if="hasOperation" class="custom-tree-node-btns" @click.stop>
             <template v-if="extraButtonsType === 'text'">
               <el-button
                 v-if="hasNew"
                 type="text"
                 @click="handleCommand('new', node, data)"
-              >{{ newText }}</el-button>
+                >{{ newText }}</el-button
+              >
               <el-button
                 v-if="hasEdit"
                 type="text"
                 @click="handleCommand('edit', node, data)"
-              >{{ editText }}</el-button>
+                >{{ editText }}</el-button
+              >
               <el-button
-                v-for="(btn, i) in extraButtons.filter(btn => !btn.show || btn.show(data, node))"
+                v-for="(btn, i) in extraButtons.filter(
+                  btn => !btn.show || btn.show(data, node)
+                )"
                 :key="i"
                 v-bind="btn"
                 type="text"
                 @click="handleCommand(btn.text, node, data)"
-              >{{ btn.text }}</el-button>
+                >{{ btn.text }}</el-button
+              >
               <el-button
                 v-if="hasDelete"
                 type="text"
-                @click="handleCommand('delete', node, data)"
                 class="delete-button"
-              >{{ deleteText }}</el-button>
+                @click="handleCommand('delete', node, data)"
+                >{{ deleteText }}</el-button
+              >
             </template>
             <el-dropdown
               v-else
               trigger="click"
-              @command="command => handleCommand(command, data, node)"
+              @command="handleCommand($event, data, node)"
             >
               <span class="el-dropdown-link">
                 <i class="el-icon-more"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item v-if="hasNew" command="new">{{ newText }}</el-dropdown-item>
-                <el-dropdown-item v-if="hasEdit" command="edit">{{ editText }}</el-dropdown-item>
+                <el-dropdown-item v-if="hasNew" command="new">{{
+                  newText
+                }}</el-dropdown-item>
+                <el-dropdown-item v-if="hasEdit" command="edit">{{
+                  editText
+                }}</el-dropdown-item>
                 <el-dropdown-item
-                  v-for="(btn, i) in extraButtons.filter(btn => !btn.show || btn.show(data, node))"
+                  v-for="(btn, i) in extraButtons.filter(
+                    btn => !btn.show || btn.show(data, node)
+                  )"
                   :key="i"
                   v-bind="btn"
                   :command="btn.text"
-                >{{ btn.text }}</el-dropdown-item>
-                <el-dropdown-item v-if="hasDelete" command="delete">{{ deleteText }}</el-dropdown-item>
+                  >{{ btn.text }}</el-dropdown-item
+                >
+                <el-dropdown-item v-if="hasDelete" command="delete">{{
+                  deleteText
+                }}</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </span>
@@ -100,16 +116,26 @@
       </el-tree>
     </section>
 
-    <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" @close="closeDialog">
+    <el-dialog
+      :title="dialogTitle"
+      :visible.sync="dialogVisible"
+      @close="closeDialog"
+    >
       <!--https://github.com/FEMessage/el-form-renderer-->
-      <el-form-renderer :content="form" ref="dialogForm" v-bind="formAttrs">
+      <el-form-renderer ref="dialogForm" :content="form" v-bind="formAttrs">
         <!--@slot 额外的弹窗表单内容, 当form不满足需求时可以使用 -->
         <slot name="form"></slot>
       </el-form-renderer>
 
       <div slot="footer">
-        <el-button @click="cancel" size="small">取 消</el-button>
-        <el-button type="primary" @click="confirm" :loading="confirmLoading" size="small">确 定</el-button>
+        <el-button size="small" @click="cancel">取 消</el-button>
+        <el-button
+          type="primary"
+          :loading="confirmLoading"
+          size="small"
+          @click="confirm"
+          >确 定</el-button
+        >
       </div>
     </el-dialog>
   </div>
@@ -118,22 +144,8 @@
 <script>
 import _get from 'lodash.get'
 
-const dataPath = 'payload.content'
-const dialogForm = 'dialogForm'
-const defaultParentKey = 'parentId'
-const defaultTreeAttrs = {
-  defaultExpandedKeys: [],
-  highlightCurrent: true,
-  props: {
-    children: 'children',
-    label: 'name'
-  },
-  nodeKey: 'id' //tree配置，每个树节点用来作为唯一标识的属性，整棵树应该是唯一的
-}
-
-const camelizeRE = /-(\w)/g
 const camelize = str =>
-  str.replace(camelizeRE, (_, c) => (c ? c.toUpperCase() : ''))
+  str.replace(/-(\w)/g, (_, c) => (c ? c.toUpperCase() : ''))
 
 export default {
   name: 'ElDataTree',
@@ -175,14 +187,14 @@ export default {
      */
     parentKey: {
       type: String,
-      default: defaultParentKey
+      default: 'parentId'
     },
     /**
      * 接口返回的数据中的路径, 嵌套对象使用.表示即可
      */
     dataPath: {
       type: String,
-      default: dataPath
+      default: 'payload.content'
     },
     /**
      * 是否展示过滤框
@@ -302,28 +314,45 @@ export default {
      * 用于转换获取的数据为目标数据
      */
     transform: {
-      type: Function
+      type: Function,
+      default(data) {
+        return data
+      }
     },
     /**
      * 点击新增按钮时的方法, 当默认新增方法不满足需求时使用, 需要返回promise。
      * 参数(data, row) data 是form表单的数据, row 是当前行的数据
      */
     onNew: {
-      type: Function
+      type: Function,
+      default(data) {
+        return this.$axios.post(this.url, data, {
+          params: this.customQuery
+        })
+      }
     },
     /**
      * 点击修改按钮时的方法, 当默认修改方法不满足需求时使用, 需要返回promise。
      * 参数(data, row) data 是form表单的数据, row 是当前行的数据
      */
     onEdit: {
-      type: Function
+      type: Function,
+      default(data, row) {
+        const url = `${this.url}/${row[this.nodeKey]}`
+        return this.$axios.put(url, data, {
+          params: this.customQuery
+        })
+      }
     },
     /**
      * 点击删除按钮时的方法, 当默认删除方法不满足需求时使用, 需要返回promise。
      * 参数(data, row) data 是form表单的数据, row 是当前行的数据
      */
     onDelete: {
-      type: Function
+      type: Function,
+      default(data) {
+        return this.$axios.delete(`${this.url}/${data[this.nodeKey]}`)
+      }
     },
     /**
      * 在新增/修改弹窗 点击确认时调用，返回Promise, 如果reject, 则不会发送新增/修改请求。
@@ -379,37 +408,35 @@ export default {
     }
   },
   computed: {
-    // 连字符转驼峰
-    camelizeTreeAttrs() {
-      const treeAttrs = this.treeAttrs
-      return Object.keys(treeAttrs).reduce((sum, k) => {
-        // 属性名转驼峰
-        const key = camelize(k)
-        sum[key] = treeAttrs[k]
-        return sum
-      }, {})
+    treeAttributes: ({treeAttrs}) => {
+      const attrs = {
+        defaultExpandedKeys: [],
+        highlightCurrent: true,
+        props: {
+          children: 'children',
+          label: 'name'
+        },
+        nodeKey: 'id' //tree配置，每个树节点用来作为唯一标识的属性，整棵树应该是唯一的
+      }
+      Object.keys(treeAttrs)
+        .map(camelize)
+        .forEach(k => (attrs[k] = treeAttrs[k]))
+      return attrs
     },
-    treeAttributes() {
-      return Object.assign({}, defaultTreeAttrs, this.camelizeTreeAttrs)
-    }
+    nodeKey: ({treeAttributes: {nodeKey}}) => nodeKey
   },
   watch: {
     url: {
-      handler() {
-        //如果url变化，则重新拉取列表
-        this.fetchData()
-      },
+      handler: 'fetchData',
       immediate: true
     },
     filterText(val) {
       this.$refs.tree.filter(val)
     },
-    checkedKeys(keys) {
-      this.updateCheckedKeys(keys)
-    },
+    checkedKeys: 'updateCheckedKeys',
     'treeAttributes.defaultExpandedKeys': {
       handler(val) {
-        val.forEach(item => this.cacheExpandedKeys.add(item))
+        this.cacheExpandedKeys = new Set(val)
         this.updateDefaultExpandKeys()
       },
       immediate: true
@@ -417,50 +444,50 @@ export default {
   },
   methods: {
     updateDefaultExpandKeys() {
+      /**
+       * 不能做成计算属性；仅在 fetchData 后才更新到 el-tree 上
+       * FYI: https://github.com/FEMessage/el-data-tree/pull/34
+       */
       this.defaultExpandedKeys = [...this.cacheExpandedKeys]
     },
     /**
      * 更新树形列表
      * @public
      */
-    fetchData() {
+    async fetchData() {
       //如果url为空，则不发送请求
       if (!this.url) {
         console.warn('ELDataTree: url 为空, 不发送请求')
-        return false
+        return
       }
 
       this.loading = true
-      this.$axios
-        .get(this.url, {
+      try {
+        const res = await this.$axios.get(this.url, {
           params: this.customQuery
         })
-        .then(res => {
-          //从dataPath获取数据
-          const treeData = _get(res, this.dataPath) || []
-          this.treeData =
-            (this.transform && this.transform(treeData)) || treeData
-          // 保持展开状态，新增、删除、编辑不丢失数据
-          this.updateDefaultExpandKeys()
-          // 确保树已经有数据后再设置选中状态
-          this.updateCheckedKeys(this.checkedKeys)
-          /**
-           * 请求数据成功，返回transform处理后的值和接口返回的值
-           * @property {object} treeData - tree的数据
-           * @property {object} res - 请求返回的完整 response
-           */
-          this.$emit('loaded', this.treeData, res)
-        })
-        .catch(error => {
-          this.$emit('error', error)
-        })
-        .finally(() => {
-          this.loading = false
-        })
+        //从dataPath获取数据
+        const data = _get(res, this.dataPath, [])
+        this.treeData = this.transform(data)
+        // 保持展开状态，新增、删除、编辑不丢失数据
+        this.updateDefaultExpandKeys()
+        // 确保树已经有数据后再设置选中状态
+        this.updateCheckedKeys(this.checkedKeys)
+        /**
+         * 请求数据成功，返回transform处理后的值和接口返回的值
+         * @property {object} treeData - tree的数据
+         * @property {object} res - 请求返回的完整 response
+         */
+        this.$emit('loaded', this.treeData, res)
+      } catch (error) {
+        this.$emit('error', error)
+      } finally {
+        this.loading = false
+      }
     },
     filterNode(value, data) {
       if (!value) return true
-      const label = this.treeAttributes.props.label
+      const {label} = this.treeAttributes.props
       return data[label].indexOf(value) !== -1
     },
     /**
@@ -472,17 +499,16 @@ export default {
       return this.$refs.tree
     },
     /**
-     * 节点选中状态发生变化时的回调
-     * 共三个参数，依次为：
-     * 传递给 data 属性的数组中该节点所对应的对象
-     * 节点本身是否被选中
-     * 节点的子树中是否有被选中的节点
+     * 节点选中状态发生变化时，更新当前选中的列表，有以下两种情况：
+     * 1. if checkStrictly，则 getCheckedKeys(false) 返回所有被选中的节点
+     * 2. if !checkStrictly，则 getCheckedKeys(true) 仅返回被选中的叶节点
+     * 原因是，!checkStrictly 时，父节点的选中状态完全取决于子节点的选中状态，其本身仅仅是作为全选子节点的开关而已。因此其自身是否被选中是无意义的
      */
     handleCheckChange() {
-      //获取选择的节点，如果节点被选中，则父节点也会选中
-      const checkNodes = this.$refs.tree.getCheckedNodes(false, true)
-      const nodeKey = this.treeAttributes.nodeKey
-      this.$emit('update:checkedKeys', checkNodes.map(item => item[nodeKey]))
+      const {checkStrictly = false} = this.treeAttributes
+      const checkedKeys = this.$refs.tree.getCheckedKeys(!checkStrictly)
+      // console.log('handleCheckChange', checkedKeys)
+      this.$emit('update:checkedKeys', checkedKeys)
     },
     /**
      * 选中指定节点
@@ -490,21 +516,8 @@ export default {
      * @public
      */
     updateCheckedKeys(keys) {
-      //设置checkedKeys的时候，设置父节点，子节点全部也被选中了
-      //解决方案：过滤掉有孩子节点的key，不设置checked状态
-      const flattenTree = (array, children) =>
-        array.reduce(
-          (sum, node) =>
-            sum.concat(node[children] ? flattenTree(node[children], children) : node),
-          []
-        )
-      const treeAttrs = this.treeAttributes
-
-      const checkedKeys = flattenTree(this.treeData, treeAttrs.props.children)
-        .filter(node => keys.indexOf(node[treeAttrs.nodeKey]) > -1)
-        .map(node => node[treeAttrs.nodeKey])
-
-      this.$refs.tree.setCheckedKeys(checkedKeys)
+      // console.log('updateCheckedKeys', keys)
+      this.$refs.tree.setCheckedKeys(keys)
     },
     handleCommand(command, data, node) {
       const handler = {
@@ -540,154 +553,98 @@ export default {
 
       // 给表单填充值
       this.$nextTick(() => {
-        this.$refs[dialogForm].updateForm(data)
+        this.$refs.dialogForm.updateForm(data)
       })
     },
     onDefaultDelete(data, node) {
       this.$confirm('确认删除吗', '提示', {
         type: 'warning',
-        beforeClose: (action, instance, done) => {
+        beforeClose: async (action, instance, done) => {
           if (action !== 'confirm') {
             done()
             return
           }
-          instance.confirmButtonLoading = true
-
-          const request =
-            (this.onDelete && this.onDelete(data, node)) ||
-            this.$axios.delete(
-              this.url + '/' + data[this.treeAttributes.nodeKey]
-            )
-          request
-            .then(() => {
-              done()
-              this.showMessage()
-              this.fetchData()
-            })
-            .catch(err => {
-              this.$emit('error', err)
-            })
-            .finally(() => {
-              instance.confirmButtonLoading = false
-            })
+          try {
+            instance.confirmButtonLoading = true
+            await this.onDelete(data, node)
+            done()
+            this.showMessage()
+            this.fetchData()
+          } catch (error) {
+            this.$emit('error', error)
+          } finally {
+            instance.confirmButtonLoading = false
+          }
         }
-      }).catch(err => {
-        this.$emit('error', err)
+      }).catch(() => {
+        // cancel
       })
     },
 
     // 组件可以绑定多个相同的事件，不需要emit node-expand/node-collapse 来兼容el-tree
     handleNodeExpand(data) {
-      const nodeKey = this.treeAttributes.nodeKey
-      this.cacheExpandedKeys.add(data[nodeKey])
+      this.cacheExpandedKeys.add(data[this.nodeKey])
     },
     handleNodeCollapse(data) {
-      const nodeKey = this.treeAttributes.nodeKey
-      this.cacheExpandedKeys.delete(data[nodeKey])
+      this.cacheExpandedKeys.delete(data[this.nodeKey])
     },
 
     cancel() {
       this.dialogVisible = false
     },
-    confirm() {
-      this.$refs[dialogForm].validate(valid => {
-        if (!valid) return false
+    async confirm() {
+      const valid = await new Promise(r => this.$refs.dialogForm.validate(r))
+      if (!valid) return false
 
-        // 新增 parentKey 为当前节点 id，修改为当前节点 parentKey
-        const parentKey = this.isNew
-          ? this.treeAttributes.nodeKey
-          : this.parentKey
+      // 新增 parentKey 为当前节点 id，修改为当前节点 parentKey
+      const parentKey = this.isNew ? this.nodeKey : this.parentKey
 
-        const data = Object.assign(
-          {
-            parentId: this.row[parentKey]
-          },
-          this.$refs[dialogForm].getFormValue(),
-          this.extraParams
-        )
-
-        this.beforeConfirm(data, this.isNew)
-          .then(() => {
-            let condiction = 'isNew'
-            let customMethod = 'onNew'
-            if (this.isEdit) {
-              condiction = 'isEdit'
-              customMethod = 'onEdit'
-            }
-
-            if (this[condiction] && this[customMethod]) {
-              this.confirmLoading = true
-              this[customMethod](data, this.row)
-                .then(resp => {
-                  this.fetchData()
-                  this.showMessage(true)
-                  this.cancel()
-                })
-                .catch(err => {
-                  this.$emit('error', err)
-                })
-                .finally(e => {
-                  this.confirmLoading = false
-                })
-              return
-            }
-
-            // 默认新增/修改逻辑
-            let method = 'post'
-            let url = this.url
-            if (this.isEdit) {
-              method = 'put'
-              url += `/${this.row[this.treeAttributes.nodeKey]}`
-            }
-            this.confirmLoading = true
-            this.$axios[method](url, data, {
-              params: this.customQuery
-            })
-              .then(resp => {
-                this.showMessage()
-                this.fetchData()
-                this.cancel()
-              })
-              .catch(err => {
-                /**
-                 * CRUD失败
-                 * @event error
-                 * @property {error} err
-                 */
-                this.$emit('error', err)
-              })
-              .finally(e => {
-                this.confirmLoading = false
-              })
-          })
-          .catch(e => {})
-      })
+      const data = {
+        parentId: this.row[parentKey],
+        ...this.$refs.dialogForm.getFormValue(),
+        ...this.extraParams
+      }
+      try {
+        await this.beforeConfirm(data, this.isNew)
+        const customMethod = this.isEdit ? 'onEdit' : 'onNew'
+        try {
+          this.confirmLoading = true
+          await this[customMethod](data, this.row)
+          this.showMessage()
+          this.fetchData()
+          this.cancel()
+        } catch (error) {
+          /**
+           * CRUD失败
+           * @event error
+           * @property {error} error
+           */
+          this.$emit('error', error)
+        } finally {
+          this.confirmLoading = false
+        }
+      } catch (error) {
+        // do nothing
+      }
     },
     closeDialog() {
       this.isNew = false
       this.isEdit = false
       this.confirmLoading = false
-      this.$refs[dialogForm].resetFields()
+      this.$refs.dialogForm.resetFields()
     },
-    showMessage(isSuccess = true) {
-      if (isSuccess) {
-        this.$message({
-          type: 'success',
-          message: '操作成功'
-        })
-      } else {
-        this.$message({
-          type: 'error',
-          message: '操作失败'
-        })
-      }
+    showMessage() {
+      this.$message({
+        type: 'success',
+        message: '操作成功'
+      })
     }
   }
 }
 </script>
 
-<style lang="stylus">
-$delete-color = #E24156;
+<style lang="less">
+@delete-color: #e24156;
 
 .el-data-tree {
   overflow: hidden;
@@ -698,7 +655,8 @@ $delete-color = #E24156;
     background-color: #fff;
     border: 1px solid #ebeef5;
 
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
       box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
     }
   }
@@ -709,7 +667,8 @@ $delete-color = #E24156;
     padding: 18px 20px;
     border-bottom: 1px solid #ebeef5;
 
-    .header-left, .header-right {
+    .header-left,
+    .header-right {
       flex: 1;
       display: flex;
       align-items: center;
@@ -726,7 +685,8 @@ $delete-color = #E24156;
       padding-right: 10px;
     }
 
-    .header-new-btn, .header-extra-block {
+    .header-new-btn,
+    .header-extra-block {
       margin-left: 10px;
     }
   }
@@ -775,10 +735,11 @@ $delete-color = #E24156;
   }
 
   .delete-button {
-    color: $delete-color;
+    color: @delete-color;
 
-    &:hover, &:focus {
-      color: $delete-color;
+    &:hover,
+    &:focus {
+      color: @delete-color;
     }
   }
 }

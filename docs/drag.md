@@ -39,7 +39,7 @@ export default {
       }
 
       this.$axios.put(
-        'https://www.easy-mock.com/mock/5bbefdf6faedce31cd6a5261/example/sort',
+        `${this.url}/sort`,
         {
           data: {
             id: dragNode.data.id,
