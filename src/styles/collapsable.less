@@ -1,0 +1,71 @@
+.el-data-tree {
+  position: relative;
+  width: 100%;
+
+  & .el-tree {
+    background-color: transparent;
+  }
+
+  & .el-data-tree-main {
+    transition: 0.3s;
+  }
+
+  &.is-collapsed {
+    min-width: 20px;
+    width: 20px;
+    background-color: #ebeef5;
+    cursor: pointer;
+
+    & .collapse-icon {
+      transform: rotate(180deg);
+    }
+
+    & .el-data-tree-main {
+      // 折叠后隐藏所有树节点内容
+      & .body {
+        opacity: 0;
+      }
+    }
+  }
+
+  &:hover {
+    & .collapse-icon-wrapper .collapse-icon {
+      opacity: 1;
+    }
+  }
+
+  & .collapse-icon-wrapper {
+    @size: 26px;
+
+    position: absolute;
+    width: @size;
+    height: @size;
+    top: @size;
+    right: 0 - (@size / 2);
+
+    & .collapse-icon {
+      transition: 0.3s;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      box-shadow: 0 0 4px #999;
+      background-color: #fff;
+      opacity: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+
+      & svg {
+        width: 1rem;
+        height: 1rem;
+      }
+
+      &:hover {
+        & svg {
+          opacity: 0.7;
+        }
+      }
+    }
+  }
+}
