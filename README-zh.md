@@ -7,13 +7,11 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/FEMessage/el-data-tree/pulls)
 [![Automated Release Notes by gren](https://img.shields.io/badge/%F0%9F%A4%96-release%20notes-00B2EE.svg)](https://github-tools.github.io/github-release-notes/)
 
-Use `axios` to automatically send requests, support filtering, customize action columns, and make RESTful CRUD simpler 👏
+使用`axios`自动发送请求，支持筛选, 自定义操作列, 让 RESTful 风格的 CRUD 更简单 👏
 
 ![el-data-tree-crud.gif](https://i.loli.net/2019/11/14/xd3mkSXasu1oe2n.gif)
 
-[中文文档](./README-zh.md)
-
-## Table of Contents
+## Table of Contents <!-- omit in toc -->
 
 - [Introduction](#introduction)
   - [CRUD](#crud)
@@ -31,47 +29,49 @@ Use `axios` to automatically send requests, support filtering, customize action
 
 ### CRUD
 
-el-data-tree is created to solve business problems, so CRUD logic is set inside.<br /> For example, to develop `user` api, suppose its relative path like this:
+el-data-tree 就是为了解决业务问题而生的，故而封装了 CRUD 的逻辑在里面。
+
+以用户接口示例，设其相对路径为:
 
 ```sh
 /api/v1/users
 ```
 
-The restful CRUD api should be:
+则其 restful CRUD 接口如下：
 
-- Retrieve
+- 查询
 
-```javascript
+```sh
 GET /api/v1/users?type=1
 ```
 
-- Create
+- 新增
 
-```javascript
-POST / api / v1 / users
+```sh
+POST /api/v1/users
 ```
 
-- Update
+- 修改(编辑)
 
-```javascript
+```sh
 PUT /api/v1/users/:id
 ```
 
-- Delete
+- 删除
 
-```javascript
+```sh
 DELETE /api/v1/users/:id
 ```
 
-Then only need to use the following code to complete CRUD functions
+则只需要使用以下代码，即可完成 CRUD 功能
 
-```html
+```vue
 <template>
   <el-data-tree v-bind="treeConfig"></el-data-tree>
 </template>
 ```
 
-```javascript
+```js
 <script>
 export default {
   data() {
@@ -82,10 +82,10 @@ export default {
         showFilter: true,
         form: [
           {
-            $type: 'input',
-            $id: 'name',
+            type: 'input',
+            id: 'name',
             label: '用户名',
-            $el: {
+            el: {
               placeholder: '请输入'
             },
             rules: [
@@ -104,21 +104,21 @@ export default {
 </script>
 ```
 
-The results are as follows：
+效果如下：
 
-- Retrieve
+- 查询
 
 ![el-data-tree-search.png](https://i.loli.net/2019/11/14/onYZzKgP8lScEyi.png)
 
-- Create
+- 新增
 
 ![el-data-tree-add.png](https://i.loli.net/2019/11/14/NKjsl2Bf5ZQ39pb.png)
 
-- Update
+- 修改
 
 ![el-data-tree-modify.png](https://i.loli.net/2019/11/14/QG2hpXIbrB1lZNv.png)
 
-- Delete
+- 删除
 
 ![el-data-tree-delete.png](https://i.loli.net/2019/11/14/t7JmLonjlpRVq9K.png)
 
@@ -126,10 +126,10 @@ The results are as follows：
 
 ## Feature
 
-- Use configuration to call restful api to complete CRUD functions
-- Support custom menu bar, as well as custom action functions
-- Save the expandedKeys by default and will not losing the expandedKeys state after calling create/delete/update apis
-- Optimized node check method
+- 只需进行 json 配置，即可实现 restful 风格的 CRUD 四个接口的对接
+- 可扩展自定义菜单栏，以及自定义操作函数
+- 默认保存展开状态，新增、删除、编辑不丢失该状态
+- 优化节点勾选方法
 
 [⬆ Back to Top](#table-of-contents)
 
@@ -141,17 +141,25 @@ The results are as follows：
 
 ## Pre Install
 
-This component peerDependencies on [element-ui](http://element.eleme.io/#/zh-CN/component/tree) and [@femessage/el-form-renderer](https://github.com/FEMessage/el-form-renderer) and [axios](https://github.com/axios/axios)<br />make sure you have installed in your project
+this component peerDependencies on [element-ui](http://element.eleme.io/#/zh-CN/component/tree) and [@femessage/el-form-renderer](https://github.com/FEMessage/el-form-renderer) and [axios](https://github.com/axios/axios)
+
+make sure you have installed in your project
 
 ```sh
 yarn add element-ui @femessage/el-form-renderer axios
+```
+
+if you want to develop the component on your localhost, you should install with -P
+
+```sh
+yarn add element-ui @femessage/el-form-renderer axios -P
 ```
 
 [⬆ Back to Top](#table-of-contents)
 
 ## Install
 
-Encourage using [yarn](https://yarnpkg.com/en/docs/install#mac-stable) to install
+encourage using [yarn](https://yarnpkg.com/en/docs/install#mac-stable) to install
 
 ```sh
 yarn add @femessage/el-data-tree
@@ -163,10 +171,15 @@ yarn add @femessage/el-data-tree
 
 ### Global Register Component
 
-This is for minification reason: in this way building your app, webpack or other bundler just bundle the dependencies into one vendor for all pages which using this component, instead of one vendor for one page
+this is for minification reason: in this way building your app,
 
-```javascript
+webpack or other bundler just bundle the dependencies into one vendor for all pages which using this component,
+
+instead of one vendor for one page
+
+```js
 import Vue from 'vue'
+
 // register component and loading directive
 import ElDataTree from '@femessage/el-data-tree'
 import ElFormRenderer from '@femessage/el-form-renderer'
@@ -184,6 +197,7 @@ import {
   MessageBox,
   Message
 } from 'element-ui'
+
 Vue.use(Button)
 Vue.use(Dialog)
 Vue.use(Dropdown)
@@ -196,6 +210,7 @@ Vue.use(Loading.directive)
 Vue.use(Tree)
 Vue.component('el-form-renderer', ElFormRenderer)
 Vue.component('el-data-tree', ElDataTree)
+
 // to show confirm before delete
 Vue.prototype.$confirm = MessageBox.confirm
 // if the tree component cannot access `this.$axios`, it cannot send request
@@ -217,9 +232,12 @@ Vue.prototype.$axios = axios
 
 ## Contributors
 
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
 <table><tr><td align="center"><a href="https://github.com/Alvin-Liu"><img src="https://avatars0.githubusercontent.com/u/11909145?v=4" width="100px;" alt="Alvin"/><br /><sub><b>Alvin</b></sub></a><br /><a href="https://github.com/FEMessage/el-data-tree/commits?author=Alvin-Liu" title="Code">💻</a> <a href="https://github.com/FEMessage/el-data-tree/commits?author=Alvin-Liu" title="Documentation">📖</a> <a href="#example-Alvin-Liu" title="Examples">💡</a></td><td align="center"><a href="https://github.com/levy9527/blog"><img src="https://avatars3.githubusercontent.com/u/9384365?v=4" width="100px;" alt="levy"/><br /><sub><b>levy</b></sub></a><br /><a href="#review-levy9527" title="Reviewed Pull Requests">👀</a> <a href="#translation-levy9527" title="Translation">🌍</a></td><td align="center"><a href="https://coldstone.fun"><img src="https://avatars1.githubusercontent.com/u/18013127?v=4" width="100px;" alt="Cold Stone"/><br /><sub><b>Cold Stone</b></sub></a><br /><a href="https://github.com/FEMessage/el-data-tree/commits?author=xrr2016" title="Code">💻</a></td><td align="center"><a href="https://evila.me"><img src="https://avatars3.githubusercontent.com/u/19513289?v=4" width="100px;" alt="EVILLT"/><br /><sub><b>EVILLT</b></sub></a><br /><a href="https://github.com/FEMessage/el-data-tree/commits?author=evillt" title="Code">💻</a> <a href="#maintenance-evillt" title="Maintenance">🚧</a></td><td align="center"><a href="https://donaldshen.github.io/portfolio"><img src="https://avatars3.githubusercontent.com/u/19591950?v=4" width="100px;" alt="Donald Shen"/><br /><sub><b>Donald Shen</b></sub></a><br /><a href="https://github.com/FEMessage/el-data-tree/commits?author=donaldshen" title="Documentation">📖</a> <a href="#maintenance-donaldshen" title="Maintenance">🚧</a></td><td align="center"><a href="https://colmugx.github.io"><img src="https://avatars1.githubusercontent.com/u/21327913?v=4" width="100px;" alt="ColMugX"/><br /><sub><b>ColMugX</b></sub></a><br /><a href="#maintenance-colmugx" title="Maintenance">🚧</a></td><td align="center"><a href="http://67.216.223.155/resume/"><img src="https://avatars3.githubusercontent.com/u/26338853?v=4" width="100px;" alt="OuZuYu"/><br /><sub><b>OuZuYu</b></sub></a><br /><a href="https://github.com/FEMessage/el-data-tree/issues?q=author%3AOuZuYu" title="Bug reports">🐛</a></td></tr></table>
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
