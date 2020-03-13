@@ -1,10 +1,13 @@
-请求数据时携带的参数
+折叠树
 
- ```vue
+```vue
 <template>
-  <el-data-tree v-bind="$data" />
+  <div style="width: 200px;">
+    <el-data-tree v-bind="$data" />
+  </div>
 </template>
- <script>
+
+<script>
 export default {
   data() {
     return {
@@ -20,9 +23,7 @@ export default {
           }
         }
       ],
-      customQuery: {
-        hello: 'world'
-      }
+      collapsable: true,
     }
   },
 }

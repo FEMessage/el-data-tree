@@ -8,8 +8,8 @@
 <script>
 export default {
   data() {
-    const baseUrl = 'https://www.easy-mock.com/mock/5c6783930df0c43ba31aca2b/femessage-mock/el-data-tree'
-    const getUrl = baseUrl + '/on-get'
+    const baseUrl = 'https://mockapi.eolinker.com/IeZWjzy87c204a1f7030b2a17b00f3776ce0a07a5030a1b/el-data-tree'
+    const getUrl = baseUrl
     const postUrl = baseUrl + '/on-post'
     const editUrl = baseUrl + '/on-edit'
     const deleteUrl = baseUrl + '/on-delete'
