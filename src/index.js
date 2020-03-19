@@ -5,7 +5,8 @@ import Component from './el-data-tree.vue'
 // the same plugin more than once,
 // so calling it multiple times on the same plugin
 // will install the plugin only once
-Component.install = Vue => {
+Component.install = (Vue, options = {}) => {
+  Vue.prototype.$elDataTreeOptions = options
   Vue.component(Component.name, Component)
 }
 
