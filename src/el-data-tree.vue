@@ -409,7 +409,9 @@ export default {
      */
     collapsable: {
       type: Boolean,
-      default: false
+      default() {
+        return _get(this, '$elDataTreeOptions.collapsable') || false
+      }
     }
   },
   data() {
