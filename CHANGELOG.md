@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.6.0](https://github.com/FEMessage/el-data-tree/compare/v0.5.0...v0.6.0) (2020-03-19)
+
+
+### Features
+
+* 注册组件时可以设置默认折叠状态 ([#64](https://github.com/FEMessage/el-data-tree/issues/64)) ([87e93c5](https://github.com/FEMessage/el-data-tree/commit/87e93c5))
+* 添加折叠功能 ([#63](https://github.com/FEMessage/el-data-tree/issues/63)) ([277ed22](https://github.com/FEMessage/el-data-tree/commit/277ed22))
+
+
+
 ## [0.5.0](https://github.com/FEMessage/el-data-tree/compare/v0.4.3...v0.5.0) (2020-03-13)
 
 
