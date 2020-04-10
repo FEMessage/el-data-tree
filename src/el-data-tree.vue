@@ -521,7 +521,7 @@ export default {
     filterNode(value, data) {
       if (!value) return true
       const label = this.treeAttributes.props.label
-      return data[label].indexOf(value) !== -1
+      return data[label].toLowerCase().includes(value.toLowerCase())
     },
     /**
      * 获取el-tree对象，方便调用其方法
