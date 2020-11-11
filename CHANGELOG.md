@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.8.0](https://github.com/FEMessage/el-data-tree/compare/v0.7.0...v0.8.0) (2020-11-11)
+
+
+### Bug Fixes
+
+* 搜索🔍忽略大小写 ([#66](https://github.com/FEMessage/el-data-tree/issues/66)) ([c46975e](https://github.com/FEMessage/el-data-tree/commit/c46975e))
+
+
+### Features
+
+* add types ([#69](https://github.com/FEMessage/el-data-tree/issues/69)) ([a19dbdc](https://github.com/FEMessage/el-data-tree/commit/a19dbdc))
+
+
+
 ## [0.7.0](https://github.com/FEMessage/el-data-tree/compare/v0.6.0...v0.7.0) (2020-04-10)
 
 
