@@ -26,6 +26,7 @@
   "browser": {
     "./sfc": "src/el-data-tree.vue"
   },
+  "types": "src/el-data-tree.d.ts",
   "scripts": {
     "dev": "vue-styleguidist server",
     "test": "jest",
@@ -47,6 +48,7 @@
     "@babel/preset-env": "^7.4.3",
     "@femessage/el-form-renderer": "^1.6.0",
     "@femessage/github-release-notes": "^0.19.0",
+    "@femessage/types": "^1.0.3",
     "axios": "^0.18.0",
     "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.5",
